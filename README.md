@@ -6,7 +6,7 @@ This app allows the user to view and create posts, comment on their and others' 
 ## About
 
 This is the second project for the Udacity React Nanodegree.
-For this app to work, it has to communicate with a backend serger, where the posts and comments are stored.
+For this app to work, it has to communicate with a backend server, where the posts and comments are stored.
 TODO: details.
 
 
