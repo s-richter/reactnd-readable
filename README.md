@@ -3,20 +3,20 @@
 This app allows the user to view and create posts, comment on their and others' posts, vote on posts and comments, and edit and delete posts and comments. Posts are grouped into fixed categories, and can be sorted by their number of votes and the timestamp.
 
 
-##About
+## About
 
 This is the second project for the Udacity React Nanodegree.
 For this app to work, it has to communicate with a backend serger, where the posts and comments are stored.
 TODO: details.
 
 
-##Demo
+## Demo
 
 Once the project is finished, there will be an online demo.
 TODO: link to online demo
 
 
-##Installing
+## Installing
 
 To install the backend server:
 
@@ -34,7 +34,7 @@ To install the frontend (this project):
 5. on your browser, navigate to http://localhost:3000/, if no browser window or tab was opened automatically
 
 
-##Built With
+## Built With
 
 * [React](https://facebook.github.io/react/) - the UI framework
 * [React Router](https://reacttraining.com/react-router/) - routing for React
