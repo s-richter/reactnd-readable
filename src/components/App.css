@@ -1,0 +1,41 @@
+html, body, .root {
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+}
+body, .app {
+  background: white;
+}
+
+.app {
+  padding: 1em;
+}
+
+.header {
+  padding: 10px 0;
+  background: #3399ff;
+  text-align: center;
+  color: white;
+}
+
+.categories {
+  margin: 10px;
+}
+
+.category {
+  margin: 10px;
+}
+
+.list-of-posts {
+  margin: 10px;
+}
+
+.post {
+  display: flex;
+}
+
+/* .post-author {
+  display: flex;
+  flex-direction: column;
+} */

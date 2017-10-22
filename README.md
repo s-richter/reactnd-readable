@@ -38,6 +38,7 @@ To install the frontend (this project):
 
 * [React](https://facebook.github.io/react/) - the UI framework
 * [React Router](https://reacttraining.com/react-router/) - routing for React
+* [Reactstrap](https://reactstrap.github.io/) - Bootstrap 4 for React
 TODO: other packages
 
 
