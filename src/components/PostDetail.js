@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Post from './Post'
-import NewPost from './NewPost'
+import Comment from './Comment'
+import NewComment from './NewComment'
 import NavigateBack from './NavigateBack'
 
-export default class ListOfPosts extends Component {
+export default class PostDetail extends Component {
     static propTypes = {
-        category: PropTypes.string
+        postId: PropTypes.string.isRequired
     }
 
-    componentWillMount() {
-        // TODO: get posts from server - GET /posts
+    constructor() {
+        super()
         this.posts = [
             {
                 id: 1,
@@ -21,8 +22,7 @@ export default class ListOfPosts extends Component {
                 voteScore: 1,
                 commentCount: 1,
                 category: "react"
-            },
-            {
+            }, {
                 id: 2,
                 title: 'Post 2',
                 author: 'Author 1',
@@ -78,32 +78,62 @@ export default class ListOfPosts extends Component {
                 category: "udacity"
             },
         ]
+
+        this.comments = [
+            {
+                id: 1,
+                postId: 1,
+                title: 'Comment 1',
+                author: 'Author 2',
+                body: 'content of the comment',
+                timestamp: '29.10.2017 14:00:00',
+                voteScore: 1,
+                category: "react"
+            }, {
+                id: 2,
+                postId: 1,
+                title: 'Comment 2',
+                author: 'Author 1',
+                body: 'content of the comment',
+                timestamp: '29.10.2017 15:00:00',
+                voteScore: 5,
+                category: "react"
+            }, {
+                id: 3,
+                postId: 1,
+                title: 'Comment 3',
+                author: 'Author 3',
+                body: 'content of the comment',
+                timestamp: '29.10.2017 16:00:00',
+                voteScore: -4,
+                category: "react"
+            }
+        ]
+    }
+
+    componentDidMount() {
+        // TODO: fetch correct post from store
+
     }
 
     render() {
-        const { category } = this.props
         return (
-            <div className="list-of-posts">
+            <div className="post-detail">
+                {/* the post */}
+                <Post post={this.posts.find((item) => item.id.toString() === this.props.postId)} />
 
-                {/* header */}
-                <div className="list-of-posts-header">
+                <div className="list-of-comments-header">
 
-                    {/* title */}
-                    <div className="list-of-posts-title">
-                        {category
-                            ? <div className="list-of-posts-title-category">
-                                <NavigateBack />
-                                <h2>{category}</h2>
-                            </div>
-                            : <h2>All posts</h2>}
+                    <div className="list-of-comments-title">
+                        <h2>Comments</h2>
                     </div>
 
                     {/* sorting */}
-                    <div className="list-of-posts-sort-by">
-                        <span className="list-of-posts-sort-by-label">Sort by: </span>
+                    <div className="list-of-comments-sort-by">
+                        <span className="list-of-comments-sort-by-label">Sort by: </span>
                         <select
-                            name="list-of-posts-sort-by-select"
-                            id="list-of-posts-sort-by-select"
+                            name="list-of-comments-sort-by-select"
+                            id="list-of-comments-sort-by-select"
                         >
                             <option value="voteScore">votes</option>
                             <option value="timestamp">timestamp</option>
@@ -111,35 +141,41 @@ export default class ListOfPosts extends Component {
                         </select>
                     </div>
 
-                    {/* add new post */}
-                    <div className="list-of-posts-new-post">
-                        <NewPost />
+                    {/* add a new comment */}
+                    <div className="list-of-comments-new-comment">
+                        <NewComment
+                            size={25} />
                     </div>
                 </div>
 
-                {/* list of posts */}
-                {this.posts.map(post => (
-                    <Post
-                        key={post.id.toString()}
-                        post={post}
-                    />
-                ))}
+                {/* the comments */}
+                <div className="list-of-comments">
+                    {this.comments.map(comment => (
+                        <Comment
+                            key={comment.id.toString()}
+                            comment={comment} />
+                    ))}
+                </div>
 
                 {/* footer */}
-                <div className="list-of-posts-footer">
+                <div className="list-of-comments-footer">
 
-                    {/* post counter */}
-                    <div className="list-of-posts-counter">
-                        Total: {this.posts.length} posts
+                    {/* comment counter */}
+                    <div className="list-of-comments-counter">
+                        Total: {this.comments.length} comments
                     </div>
 
-                    {/* add new post */}
-                    <div className="list-of-posts-new-post">
-                        <NewPost />
+                    {/* add new comment */}
+                    <div className="list-of-comments-new-comment">
+                        <NewComment />
                     </div>
+                </div>
+
+                <div className="post-detail-navigate-back">
+                    <NavigateBack />
                 </div>
             </div>
         )
     }
-}
 
+}

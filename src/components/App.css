@@ -1,3 +1,5 @@
+/* general styles */
+
 html, body, .root {
   height: 100%;
 }
@@ -7,6 +9,9 @@ body {
 body, .app {
   background: white;
 }
+
+
+/* app styles */
 
 .app {
   padding: 1em;
@@ -19,23 +24,376 @@ body, .app {
   color: white;
 }
 
+
+/* categories */
+
 .categories {
-  margin: 10px;
+  margin: 15px 10px;
+}
+
+.categories-header {
+  display: flex;
+  justify-content: space-between;
+  height: 44px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #dedede;
+}
+
+.categories-title {
+  margin: auto 0;
+}
+
+.categories-title h2 {
+  font-size: 1.3em;
+  display: inline;
 }
 
 .category {
   margin: 10px;
 }
 
-.list-of-posts {
-  margin: 10px;
+.category h3 {
+  font-size: 1.2em;
+  font-weight: 400;
 }
+
+/* vote counter */
+
+.vote-counter {
+  display: flex;
+  margin: 5px;
+}
+
+.vote-counter-vote-up {
+  cursor: pointer;
+}
+
+.vote-counter-vote-down {
+  margin-left: 7px;
+  cursor: pointer;
+}
+
+/* list of posts */
+
+.list-of-posts {
+  margin: 15px 10px;
+}
+
+.list-of-posts-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 5px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #dedede;
+}
+
+.list-of-posts-title {
+  margin: auto 0;
+}
+
+.list-of-posts-title h2 {
+  font-size: 1.3em;
+  display: inline;
+}
+
+.list-of-posts-title-category svg {
+  margin: -6px 5px 0 0;
+  cursor: pointer;
+}
+
+.list-of-posts-sort-by {
+  margin: auto 0;
+  margin-left: auto;
+}
+
+.list-of-posts-sort-by select {
+  margin-left: 5px;
+}
+
+.list-of-posts-new-post {
+  margin-right: 10px;
+}
+
+.list-of-posts-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #dedede;
+}
+
+.list-of-posts-counter {
+  font-weight: bold;
+  margin: auto 0;
+}
+
+
+/* new post */
+
+.new-post {
+  margin: 5px 2px 5px 8px;
+  cursor: pointer;
+}
+
+.new-post-plus {
+  font-weight: bold;
+}
+
+
+/* post */
 
 .post {
   display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  padding-top: 5px;
+  padding-left: 5px;
 }
 
-/* .post-author {
+.post:nth-child(2n+1) {
+  background-color: whitesmoke;
+}
+
+.post:first-child {
+  margin: 10px;
+  background-color: transparent;
+  /* border-bottom: 1px solid #dedede; */
+}
+
+.post-header {
+  display: flex;
+}
+
+.post-image {
+  flex: 0 0 auto;
+}
+
+.post-image img {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+
+.post-info {
+  margin: 5px 10px;
+  flex: 1 1 auto;
+}
+
+.post-title-category h4 {
+  display: inline;
+  font-size: 1.1em;
+}
+
+.post-title-category a h4 {
+  color: black;
+}
+
+.post-category {
+  margin-left: 15px;
+  color: #999999;
+}
+
+.post-author {
+  font-size: 0.8em;
+}
+
+.post-edit-delete {
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-} */
+  margin: 5px 0;  
+  width: 40px;
+  border-left: 1px solid #eeeeee;
+}
+
+.post-edit {
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.post-delete {
+  margin: 3px auto;
+  cursor: pointer;
+}
+
+.post-stats {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.post-comments {
+  display: flex;
+  flex-direction: column;
+  width: 50px;
+  margin: 5px 0;
+  border-left: 1px solid #eeeeee;
+}
+
+.post-score {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+  width: 60px;
+  border-left: 1px solid #eeeeee;
+}
+
+.display-count {
+  text-align: center;
+}
+
+.post-comment-icon {
+  margin: 3px auto;
+  cursor: pointer;
+}
+
+.post-content {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+
+/* comments */
+
+.list-of-comments {
+  display: flex;
+  flex-direction: column;
+  margin-left: 45px;
+}
+
+.list-of-comments-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 5px 55px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #dedede;
+}
+
+.list-of-comments-title {
+  margin: auto 0;
+}
+
+.list-of-comments-title h2 {
+  font-size: 1.3em;
+  display: inline;
+}
+
+.list-of-comments-sort-by {
+  margin: auto 0;
+  margin-left: auto;
+}
+
+.list-of-comments-sort-by select {
+  margin-left: 5px;
+}
+
+.list-of-comments-new-comment {
+  margin-right: 10px;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding-top: 5px;
+  padding-left: 5px;
+  background-color: whitesmoke;
+}
+
+.comment-header {
+  display: flex;
+}
+
+.comment-image {
+  flex: 0 0 auto;
+}
+
+.comment-image img {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+
+.comment-info {
+  margin: 5px 10px;
+  flex: 1 1 auto;
+}
+
+.comment-title-category h4 {
+  display: inline;
+  font-size: 1.1em;
+}
+
+.comment-category {
+  margin-left: 15px;
+  color: #999999;
+}
+
+.comment-author {
+  font-size: 0.8em;
+}
+
+.comment-edit-delete {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;  
+  width: 40px;
+  border-left: 1px solid #eeeeee;
+}
+
+.comment-stats {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.comment-score {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+  width: 60px;
+  border-left: 1px solid #eeeeee;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.comment-body {
+  margin: 5px;
+}
+
+.list-of-comments-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 45px;
+  border-top: 1px solid #dedede;
+}
+
+.list-of-comments-counter {
+  font-weight: bold;
+  margin: auto 10px;
+}
+
+.list-of-comments-new-comment {
+  margin-right: 10px;
+}
+
+
+/* new comment */
+
+.new-comment {
+  margin: 5px 2px 5px 8px;
+  cursor: pointer;
+}
+
+.new-comment-plus {
+  font-weight: bold;
+}
+
+
+.post-detail-navigate-back {
+  position: fixed;
+  top: 270px;
+  left: 50px;
+}

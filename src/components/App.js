@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Route, Switch } from 'react-router-dom'
 import { Container, Row, Col } from 'reactstrap'
 import Header from './Header'
-import Categories from './Categories'
-import ListOfPosts from './ListOfPosts'
-import NewPost from './NewPost'
+import Main from './Main'
+import CategoryView from './CategoryView'
+import PostDetail from './PostDetail'
+import './App.css';
+import './Tooltip.css'
 
 class App extends Component {
   render() {
@@ -13,20 +15,21 @@ class App extends Component {
         <Container fluid>
           <Row>
             <Col>
-             {/* header of the app */}
-             <Header />
-            </Col>           
+
+              <Header />
+            </Col>
           </Row>
-          <Row>
-            <Col xs="3">
-              {/* available categories */}
-              <Categories /></Col>
-            <Col xs="9">
-              {/* list of the first 10 posts */}
-              <ListOfPosts />
-              {/* add new post */}
-              <NewPost /></Col>
-          </Row>
+          <Switch>
+            <Route exact path='/' component={Main} />
+            <Route path='/categories/:category' component={CategoryView} />
+            <Route
+              path='/posts/:postId'
+              render={({ match }) =>
+                <PostDetail postId={match.params.postId} />
+              } />
+
+          </Switch>
+
         </Container>
       </div>
     )
