@@ -39,7 +39,7 @@ To install the frontend (this project):
 * [React](https://facebook.github.io/react/) - the UI framework
 * [React Router](https://reacttraining.com/react-router/) - routing for React
 * [Reactstrap](https://reactstrap.github.io/) - Bootstrap 4 for React
-* [Animated Tooltips with CSS](https://webdesign.tutsplus.com/tutorials/css-tooltip-magic--cms-28082) - animated tooltips with CSS
+
 TODO: other packages
 
 
