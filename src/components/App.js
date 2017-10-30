@@ -8,6 +8,16 @@ import PostDetail from './PostDetail'
 import './App.css';
 import './Tooltip.css'
 
+// TODO: if there is no comment yet, show comment form
+// TODO: sorting of posts and comments
+// TODO: get categories from store
+// TODO: when a post gets deleted, all its comments have set their property parentDeleted to true
+// TODO: enable the user to pick a picture from a list to show for the post
+// TODO: add new post and add new comment
+// TODO: CategoryView: filter posts according to category
+// TODO: PostDetail: filter comments that belong to the displayed post
+
+
 class App extends Component {
   render() {
     return (

@@ -13,74 +13,84 @@ export default class ListOfPosts extends Component {
         // TODO: get posts from server - GET /posts
         this.posts = [
             {
-                id: 1,
-                title: 'Post 1',
-                author: 'Author 1',
-                body: 'content of the post',
-                timestamp: '22.10.2017 14:00:00',
+                id: "1",
+                timestamp: 1509353271621,
+                title: "Post 1",
+                body: "content of the post. This is going to be a longer post, so that we can see what happens when the comment is longer than a single line.",
+                author: "Author 1",
+                category: "react",
                 voteScore: 1,
-                commentCount: 1,
-                category: "react"
+                deleted: false,
+                commentCount: 1
             },
             {
-                id: 2,
-                title: 'Post 2',
-                author: 'Author 1',
-                body: 'content of the post',
-                timestamp: '22.10.2017 14:00:01',
+                id: "2",
+                timestamp: 1509353371621,
+                title: "Post 2",
+                body: "content of the post",
+                author: "Author 1",
+                category: "redux",
                 voteScore: 999,
-                commentCount: 2,
-                category: "redux"
+                deleted: false,
+                commentCount: 2
             }, {
-                id: 3,
-                title: 'Post 3',
-                author: 'Author 2',
-                body: 'content of the post',
-                timestamp: '22.10.2017 15:00:00',
+                id: "3",
+                timestamp: 1509353471621,
+                title: "Post 3",
+                body: "content of the post",
+                author: "Author 2",
+                category: "react",
                 voteScore: -1,
-                commentCount: 1,
-                category: "react"
+                deleted: false,
+                commentCount: 1
             }, {
-                id: 4,
-                title: 'Post 4 with a rather long title, right?',
-                author: 'Author 3',
-                body: 'content of the post',
-                timestamp: '22.10.2017 16:00:00',
+                id: "4",
+                timestamp: 1509353571621,
+                title: "Post 4 with a rather long title, right?",
+                body: "content of the post",
+                author: "Author 3",
+                category: "udacity",
                 voteScore: -1234,
-                commentCount: 999,
-                category: "udacity"
+                deleted: false,
+                commentCount: 999
             }, {
-                id: 5,
-                title: 'Post 5 with a shorter title',
-                author: 'Author 1',
-                body: 'content of the post',
-                timestamp: '22.10.2017 17:00:00',
+                id: "5",
+                timestamp: 1509353671621,
+                title: "Post 5 with a shorter title",
+                body: "content of the post",
+                author: "Author 1",
+                category: "udacity",
                 voteScore: 999,
-                commentCount: 999,
-                category: "udacity"
+                deleted: false,
+                commentCount: 999
             }, {
-                id: 6,
-                title: 'Post 6',
-                author: 'Author 2',
-                body: 'content of the post',
-                timestamp: '22.10.2017 18:00:00',
+                id: "6",
+                timestamp: 1509353771621,
+                title: "Post 6",
+                body: "content of the post",
+                author: "Author 2",
+                category: "udacity",
                 voteScore: 9999,
-                commentCount: 9999,
-                category: "udacity"
+                deleted: false,
+                commentCount: 9999
             }, {
-                id: 7,
-                title: 'Post 7',
-                author: 'Author 3',
-                body: 'content of the post',
-                timestamp: '22.10.2017 19:00:00',
+                id: "7",
+                timestamp: 1509353871621,
+                title: "Post 7",
+                body: "content of the post",
+                author: "Author 3",
+                category: "udacity",
                 voteScore: -99999,
-                commentCount: 22,
-                category: "udacity"
+                deleted: false,
+                commentCount: 22
             },
         ]
     }
 
     render() {
+        // this.posts.map(post => (
+        //     console.log({...post})
+        // ))        
         const { category } = this.props
         return (
             <div className="list-of-posts">
@@ -101,6 +111,7 @@ export default class ListOfPosts extends Component {
                     {/* sorting */}
                     <div className="list-of-posts-sort-by">
                         <span className="list-of-posts-sort-by-label">Sort by: </span>
+                        {/* TODO: get categories from store */}
                         <select
                             name="list-of-posts-sort-by-select"
                             id="list-of-posts-sort-by-select"
@@ -120,10 +131,10 @@ export default class ListOfPosts extends Component {
                 {/* list of posts */}
                 {this.posts.map(post => (
                     <Post
-                        key={post.id.toString()}
+                        key={post.id}
                         post={post}
-                    />
-                ))}
+                    />                    
+                ))}                
 
                 {/* footer */}
                 <div className="list-of-posts-footer">

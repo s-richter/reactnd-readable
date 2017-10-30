@@ -1,76 +1,130 @@
 import React, { Component } from 'react'
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PropTypes from 'prop-types'
 import NoImage from 'react-icons/lib/fa/image'
-import EditItem from './EditItem'
-import DeleteItem from './DeleteItem'
+import EditItemButton from './EditItemButton'
+import DeleteItemButton from './DeleteItemButton'
 import DisplayCount from './DisplayCount'
 import VoteChanger from './VoteChanger'
+import EditItemInput from './EditItemInput'
+import EditItemTextArea from './EditItemTextArea'
+import EditItemModalFooter from './EditItemModalFooter'
 
 export default class Comment extends Component {
     static propTypes = {
         comment: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            postId: PropTypes.number.isRequired,
-            title: PropTypes.string.isRequired,
-            author: PropTypes.string.isRequired,
+            id: PropTypes.string.isRequired,
+            parentId: PropTypes.string.isRequired,
+            timestamp: PropTypes.number.isRequired,
             body: PropTypes.string,
-            timestamp: PropTypes.timestamp,
+            author: PropTypes.string.isRequired,
             voteScore: PropTypes.number.isRequired,
-            category: PropTypes.string.isRequired
+            deleted: PropTypes.bool,
+            parentDeleted: PropTypes.bool
         })
+    }
+
+    state = {
+        modal: false
+    }
+
+    saveChanges = (field, value) => {
+        // TODO: save changes in store
+        console.log("changes to comment saved!")
+        this.toggleModal()
+    }
+
+    toggleModal = () => {
+        this.setState({ modal: !this.state.modal })
+    }
+
+    deleteComment = () => {
+        // TODO: mark comment as deleted
+        console.log("comment " + this.props.comment.id + " deleted!")
     }
 
     render() {
         const { comment } = this.props
         return (
-            <div className="comment">
-                <div className="comment-header">
+            <div className="comment-container">
+                <div className="comment">
+                    <div className="comment-header">
 
-                    {/* image of the author or picture for the comment. Can be hidden */}
-                    <div className="comment-image">
-                        <NoImage
-                            size={35}
-                            color='lightgrey' />
-                    </div>
-
-                    {/* information about the author and last edit date */}
-                    <div className="comment-info">
-                        <div className="comment-title-category">
-                            <h4>{comment.title}</h4>
-                            <span className="comment-category">({comment.category})</span>
+                        {/* image of the author or picture for the comment. Can be hidden */}
+                        <div className="comment-image">
+                            <NoImage
+                                size={35}
+                                color='lightgrey' />
                         </div>
-                        <div className="comment-author">
-                            written by {comment.author} @ {comment.timestamp}
+
+                        {/* information about the author and last edit date */}
+                        <div className="comment-info">
+                            <div className="comment-title-category">
+                                <h4>{comment.title}</h4>
+                            </div>
+                            <div className="comment-author">
+                                written by {comment.author} @ {new Date(comment.timestamp).toLocaleString()}
+                            </div>
+                        </div>
+
+                        {/* controls to edit and delete the comment */}
+                        <div className="comment-edit-delete">
+                            <EditItemButton
+                                itemName="comment"
+                                onEdit={this.toggleModal} />
+                            <DeleteItemButton
+                                itemName="comment"
+                                onDelete={this.deleteComment} />
+                        </div>
+
+                        {/* statistics for the comment and controls to vote */}
+                        <div className="comment-stats">
+                            {/* number of votes and controls to vote the comment up or down */}
+                            <div className="comment-score">
+                                <DisplayCount
+                                    number={comment.voteScore}
+                                    colorize={true}
+                                />
+                                <VoteChanger countedName="comment" />
+                            </div>
                         </div>
                     </div>
 
-                    {/* controls to edit and delete the comment */}
-                    <div className="comment-edit-delete">
-                        <EditItem itemName="comment" />
-                        <DeleteItem itemName="comment" />
-                    </div>
-
-                    {/* statistics for the comment and controls to vote */}
-                    <div className="comment-stats">
-                        {/* number of votes and controls to vote the comment up or down */}
-                        <div className="comment-score">
-                            <DisplayCount
-                                number={comment.voteScore}
-                                colorize={true}
-                            />
-                            <VoteChanger countedName="comment" />
+                    {/* the actual content of the comment */}
+                    {
+                        <div className="comment-content">
+                            <div className="comment-body">
+                                {comment.body}
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
 
-                {/* the actual content of the comment */}
-                {
-                    <div className="comment-content">
-                        <div className="comment-body">
-                            {comment.body}
-                        </div>
-                    </div>
-                }
+                {/* the modal dialog to edit the comment */}
+                <Modal
+                    isOpen={this.state.modal}
+                    toggle={this.toggleModal}
+                >
+                    <ModalHeader toggle={this.toggleModal}>Edit Comment</ModalHeader>
+                    <ModalBody>
+                        {/* author */}
+                        <EditItemInput
+                            label="Author"
+                            value={comment.author}
+                            onChange={() => console.log("The author was changed")}
+                        />
+
+                        {/* message */}
+                        <EditItemTextArea
+                            label="Message"
+                            value={comment.body}
+                            onChange={() => console.log("The message was changed")}
+                        />
+                    </ModalBody>
+                    <EditItemModalFooter
+                        saveChanges={this.saveChanges}
+                        toggleModal={this.toggleModal} />                  
+                </Modal>
             </div>
         )
     }

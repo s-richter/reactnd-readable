@@ -5,6 +5,13 @@ export default class Categories extends Component {
     componentWillMount() {
         // TODO: get categories from server - GET /categories
         this.categories = ['react', 'redux', 'udacity']
+
+        // TODO: get category colors from store
+        this.categoryColors = {
+            "react": "#61DAFB",
+            "redux": "#764ABC",
+            "udacity": "#06ADDB"
+        }
     }
 
     render() {
@@ -19,6 +26,7 @@ export default class Categories extends Component {
                     <Category
                         key={cat}
                         name={cat}
+                        categoryColor={this.categoryColors[cat]}
                     />
                 ))}
             </div>

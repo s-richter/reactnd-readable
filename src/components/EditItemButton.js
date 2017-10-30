@@ -3,22 +3,24 @@ import PropTypes from 'prop-types'
 import Edit from 'react-icons/lib/fa/edit'
 
 const propTypes = {
-    itemName: PropTypes.string.isRequired
+    itemName: PropTypes.string.isRequired,
+    onEdit: PropTypes.func
 }
 
-function EditItem(props) {
+function EditItemButton(props) {
     const item = `Edit ${props.itemName}`
     return (
         <div
             className="post-edit"
             tooltip={item}
             flow="left"
+            onClick={() => props.onEdit()}
         >
             <Edit size={20} />
         </div>
     )
 }
 
-EditItem.propTypes = propTypes
+EditItemButton.propTypes = propTypes
 
-export default EditItem
+export default EditItemButton
