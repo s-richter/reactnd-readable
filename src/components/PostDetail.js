@@ -58,9 +58,9 @@ class PostDetail extends Component {
                             <h2>Comments</h2>
                         </div>
 
-                        {/* sorting */}
-                        <SortBy onChange={(sortMethod) => this.sortComments(sortMethod)} />
+                        {/* sorting */}                        
                         {/* TODO: comments have not "sort by comment count" */}
+                        <SortBy onChange={(sortMethod) => this.sortComments(sortMethod)} />
 
                         {/* add a new comment */}
                         <div className="list-of-comments-new-comment">
