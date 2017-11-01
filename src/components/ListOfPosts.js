@@ -4,7 +4,9 @@ import PropTypes from 'prop-types'
 import Post from './Post'
 import NewPost from './NewPost'
 import NavigateBack from './NavigateBack'
-import { fetchPosts, fetchAllPosts } from '../actions'
+import SortBy from './SortBy'
+import * as util from '../util'
+import { fetchPosts, fetchAllPosts, updatePostSortMethod } from '../actions'
 
 class ListOfPosts extends Component {
     static propTypes = {
@@ -16,6 +18,13 @@ class ListOfPosts extends Component {
         category
             ? dispatch(fetchPosts(category))
             : dispatch(fetchAllPosts())
+    }
+
+    sortPosts(sortMethod) {
+        const { dispatch, items } = this.props
+        if (items && items.length > 0) {
+            dispatch(updatePostSortMethod(sortMethod))
+        }
     }
 
     render() {
@@ -37,18 +46,7 @@ class ListOfPosts extends Component {
                     </div>
 
                     {/* sorting */}
-                    <div className="list-of-posts-sort-by">
-                        <span className="list-of-posts-sort-by-label">Sort by: </span>
-                        {/* TODO: get sorting possibilities from store? */}
-                        <select
-                            name="list-of-posts-sort-by-select"
-                            id="list-of-posts-sort-by-select"
-                        >
-                            <option value="voteScore">votes</option>
-                            <option value="timestamp">timestamp</option>
-                            <option value="numberOfComments">comments</option>
-                        </select>
-                    </div>
+                    <SortBy onChange={(sortMethod) => this.sortPosts(sortMethod)} />
 
                     {/* add new post */}
                     <div className="list-of-posts-new-post">
@@ -97,15 +95,14 @@ class ListOfPosts extends Component {
 }
 
 function mapStateToProps({ posts, categories }) {
-    const { isFetching, items } = posts
-    const { items: categoryNames } = categories
-    // TODO: de we still need categoryNames?
+    const { isFetching, sortMethod, sortDirection, items } = posts
+    const sortingMethod = util.GetSortMethodByCriteria(sortMethod, sortDirection)
+    items.sort(sortingMethod)
     return {
         isFetching,
-        items,
-        categoryNames
+        sortMethod,
+        items
     }
 }
 
 export default connect(mapStateToProps)(ListOfPosts)
-

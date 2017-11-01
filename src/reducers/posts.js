@@ -1,8 +1,11 @@
 import * as ACTIONS from '../actions'
+import * as util from '../util'
 
 export const posts = (
     state = {
         isFetching: false,
+        sortMethod: util.defaultSortingCriteria,
+        sortDirection: util.defaultSortDirection,
         items: []
     },
     action
@@ -55,6 +58,12 @@ export const posts = (
                 isFetching: false,
                 items: [],
                 failedToLoadPost: true
+            }
+        case ACTIONS.SORT_POSTS:
+            return {
+                ...state,
+                sortMethod: action.sortMethod,
+                sortDirection: action.sortDirection
             }
         default:
             return state
