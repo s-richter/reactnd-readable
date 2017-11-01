@@ -6,7 +6,9 @@ import Post from './Post'
 import Comment from './Comment'
 import NewComment from './NewComment'
 import NavigateBack from './NavigateBack'
-import { fetchPostById, fetchComments } from '../actions'
+import SortBy from './SortBy'
+import * as util from '../util'
+import { fetchPostById, fetchComments, updateCommentSortMethod } from '../actions'
 
 class PostDetail extends Component {
     static propTypes = {
@@ -17,6 +19,13 @@ class PostDetail extends Component {
         const { dispatch, postId } = this.props
         dispatch(fetchPostById(postId))
         dispatch(fetchComments(postId))
+    }
+
+    sortComments(sortMethod) {
+        const { dispatch, comments } = this.props
+        if (comments.items && comments.items.length > 0) {
+            dispatch(updateCommentSortMethod(sortMethod))
+        }
     }
 
     render() {
@@ -50,17 +59,8 @@ class PostDetail extends Component {
                         </div>
 
                         {/* sorting */}
-                        <div className="list-of-comments-sort-by">
-                            <span className="list-of-comments-sort-by-label">Sort by: </span>
-                            <select
-                                name="list-of-comments-sort-by-select"
-                                id="list-of-comments-sort-by-select"
-                            >
-                                <option value="voteScore">votes</option>
-                                <option value="timestamp">timestamp</option>
-                                <option value="numberOfComments">comments</option>
-                            </select>
-                        </div>
+                        <SortBy onChange={(sortMethod) => this.sortComments(sortMethod)} />
+                        {/* TODO: comments have not "sort by comment count" */}
 
                         {/* add a new comment */}
                         <div className="list-of-comments-new-comment">
@@ -72,8 +72,8 @@ class PostDetail extends Component {
                     {/* the comments */}
                     <div className="list-of-comments">
                         {
-                            comments.length > 0
-                                ? comments.map(comment => (
+                            comments.items.length > 0
+                                ? comments.items.map(comment => (
                                     <Comment
                                         key={comment.id}
                                         comment={comment} />
@@ -104,20 +104,21 @@ class PostDetail extends Component {
 }
 
 function mapStateToProps({ posts, comments }, ownProps) {
+    if (posts.items.length === 0) {
+        return {
+            posts,
+            comments,
+            failedToLoadPost: true
+        }
+    }
     const post = posts.items.find(p => p.id === ownProps.postId)
-    const { items: commentItems } = comments
-    if (post) {
-        return {
-            post,
-            comments: commentItems
-        }
-    } else {
-        // this page was called when the store was empty or the post could not be found - search for it
-        return {
-            isFetching: true,
-            failedToLoadPost: true,
-            comments: commentItems
-        }
+    const { sortMethod, sortDirection } = comments
+    const sortingMethod = util.GetSortMethodByCriteria(sortMethod, sortDirection)
+    comments.items.sort(sortingMethod)
+    return {
+        post,
+        comments,
+        failedToLoadPost: false
     }
 }
 

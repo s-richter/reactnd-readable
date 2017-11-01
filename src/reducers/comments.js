@@ -1,8 +1,11 @@
 import * as ACTIONS from '../actions'
+import * as util from '../util'
 
 export const comments = (
     state = {
         isFetching: false,
+        sortMethod: util.defaultSortingCriteria,
+        sortDirection: util.defaultSortDirection,
         items: []
     },
     action
@@ -24,6 +27,12 @@ export const comments = (
                 ...state,
                 isFetching: false,
                 items: []
+            }
+        case ACTIONS.SORT_COMMENTS:
+            return {
+                ...state,
+                sortMethod: action.sortMethod,
+                sortDirection: action.sortDirection
             }
         default:
             return state

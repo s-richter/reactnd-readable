@@ -1,8 +1,9 @@
-import * as UTIL from '../util'
+import * as util from '../util'
 
 export const REQUEST_COMMENTS = 'REQUEST_COMMENTS'
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
 export const FAILURE_FETCH_COMMENTS = 'FAILURE_FETCH_COMMENTS'
+export const SORT_COMMENTS = 'SORT_COMMENTS'
 
 export function requestComments(postId) {
     return {
@@ -27,7 +28,7 @@ export function failureFetchComments() {
 export function fetchComments(postId) {
     return function (dispatch) {
         dispatch(requestComments(postId))
-        return fetch(`${UTIL.URI}/posts/${postId}/comments`,
+        return fetch(`${util.URI}/posts/${postId}/comments`,
             {
                 headers: { 'Authorization': 'because' }
             })
@@ -47,5 +48,13 @@ export function fetchComments(postId) {
                 }
                 return dispatch(receiveComments(json))
             })
+    }
+}
+
+export function updateCommentSortMethod(sortMethod, sortDirection = util.defaultSortDirection) {
+    return {
+        type: SORT_COMMENTS,
+        sortMethod,
+        sortDirection
     }
 }

@@ -101,11 +101,13 @@ body, .app {
   cursor: pointer;
 }
 
+/* delete this */
 .list-of-posts-sort-by {
   margin: auto 0;
   margin-left: auto;
 }
 
+/* delete this */
 .list-of-posts-sort-by select {
   margin-left: 5px;
 }
@@ -125,6 +127,17 @@ body, .app {
   margin: auto 0;
 }
 
+
+/* sort-by */
+
+.sort-by {
+  margin: auto 0;
+  margin-left: auto;
+}
+
+.sort-by select {
+  margin-left: 5px;
+}
 
 /* new post */
 
@@ -305,11 +318,13 @@ body, .app {
   display: inline;
 }
 
+/* TODO: delete this */
 .list-of-comments-sort-by {
   margin: auto 0;
   margin-left: auto;
 }
 
+/* TODO: delete this */
 .list-of-comments-sort-by select {
   margin-left: 5px;
 }

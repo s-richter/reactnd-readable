@@ -1,4 +1,4 @@
-import * as UTIL from '../util'
+import * as util from '../util'
 
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -8,7 +8,7 @@ export const FAILURE_FETCH_POSTS = 'FAILURE_FETCH_POSTS'
 export const REQUEST_POST_BY_ID = 'REQUEST_POST_BY_ID'
 export const RECEIVE_POST_BY_ID = 'RECEIVE_POST_BY_ID'
 export const FAILURE_FETCH_POST_BY_ID = 'FAILURE_FETCH_POST_BY_ID'
-
+export const SORT_POSTS = 'SORT_POSTS'
 
 export function requestPosts(category) {
     return {
@@ -33,7 +33,7 @@ export function failureFetchPosts() {
 export function fetchPosts(category) {
     return function (dispatch) {
         dispatch(requestPosts(category))
-        return fetch(`${UTIL.URI}/${category}/posts`,
+        return fetch(`${util.URI}/${category}/posts`,
             {
                 headers: { 'Authorization': 'because' }
             })
@@ -72,7 +72,7 @@ export function receiveAllPosts(json) {
 export function fetchAllPosts() {
     return function (dispatch) {
         dispatch(requestAllPosts())
-        return fetch(`${UTIL.URI}/posts`,
+        return fetch(`${util.URI}/posts`,
             {
                 headers: { 'Authorization': 'because' }
             })
@@ -140,10 +140,10 @@ export function fetchPostById(id) {
     }
 }
 
-// this function intentionally doesn't get exported
+// this function intentionally does not get exported
 function fetchPostFromStore(dispatch, id) {
     return fetch(
-        `${UTIL.URI}/posts/${id}`,
+        `${util.URI}/posts/${id}`,
         {
             headers: { 'Authorization': 'because' }
         })
@@ -163,4 +163,12 @@ function fetchPostFromStore(dispatch, id) {
             }
             return dispatch(receivePostById(json))
         })
+}
+
+export function updatePostSortMethod(sortMethod, sortDirection = util.defaultSortDirection) {
+    return {
+        type: SORT_POSTS,
+        sortMethod,
+        sortDirection
+    }
 }
