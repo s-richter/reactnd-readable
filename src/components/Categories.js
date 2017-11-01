@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Category from './Category'
+import { fetchCategories } from '../actions'
 
-export default class Categories extends Component {
-    componentWillMount() {
-        // TODO: get categories from server - GET /categories
-        this.categories = ['react', 'redux', 'udacity']
-
+class Categories extends Component {
+    constructor() {
+        super()
         // TODO: get category colors from store
         this.categoryColors = {
             "react": "#61DAFB",
@@ -14,7 +14,13 @@ export default class Categories extends Component {
         }
     }
 
+    componentDidMount() {
+        const { dispatch } = this.props
+        dispatch(fetchCategories())
+    }
+
     render() {
+        const { isFetching, items } = this.props
         return (
             <div className="categories">
                 <div className="categories-header">
@@ -22,16 +28,32 @@ export default class Categories extends Component {
                         <h2>Categories</h2>
                     </div>
                 </div>
-                {this.categories.map(cat => (
-                    <Category
-                        key={cat}
-                        name={cat}
-                        categoryColor={this.categoryColors[cat]}
-                    />
-                ))}
+                {
+                    isFetching
+                        ? <div style={{ margin: '10px' }}>Loading...</div>
+                        : <div>
+                            {
+                                items.map(cat => (
+                                    <Category
+                                        key={cat}
+                                        name={cat}
+                                        categoryColor={this.categoryColors[cat]}
+                                    />
+                                ))
+                            }
+                        </div>
+                }
             </div>
         )
     }
 }
 
+function mapStateToProps({ categories }) {
+    const { isFetching, items } = categories
+    return {
+        isFetching,
+        items
+    }
+}
 
+export default connect(mapStateToProps)(Categories)

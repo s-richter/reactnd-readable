@@ -262,21 +262,21 @@ body, .app {
 
 
 /* post details */
-.post-detail {
-  padding-right: 10px;
-}
 
 .post-detail-container {
   display: flex;
   margin-top: 5px;
 }
 
+.post-detail {
+  padding-right: 10px;
+}
 
 .post-detail-navigate-back {
   /* position: fixed;
   top: 147px;
   left: 41px; */
-  margin: 14px 0 0 10px;
+  margin: 15px 0 0 10px;
 }
 
 .post-detail-post {
@@ -323,7 +323,6 @@ body, .app {
   flex-direction: column;
   margin-left: 45px;
 }
-
 
 .list-of-comments-footer {
   display: flex;
@@ -441,49 +440,3 @@ body, .app {
   width: 100%;
   min-height: 200px;
 }
-
-
-/* edit post dialog */
-/* .edit-post-label {
-  margin-top: 10px;
-  margin-left: 10px;
-  font-weight: bold;
-}
-
-.edit-post-input {
-  margin: 10px;
-  margin-bottom: 0;
-  align-self: stretch;
-}
-
-.edit-post-input input {
-  width: 100%;
-}
-
-.edit-post-input textarea {
-  width: 100%;
-  min-height: 200px;
-}
- */
-
-/* edit comment dialog */
-/* .edit-comment-label {
-  margin-top: 10px;
-  margin-left: 10px;
-  font-weight: bold;
-}
-
-.edit-comment-input {
-  margin: 10px;
-  margin-bottom: 0;
-  align-self: stretch;
-}
-
-.edit-comment-input input {
-  width: 100%;
-}
-
-.edit-comment-input textarea {
-  width: 100%;
-  min-height: 200px;
-} */

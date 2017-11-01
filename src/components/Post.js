@@ -45,11 +45,6 @@ export default class Post extends Component {
         }
     }
 
-    componentDidMount() {
-        // TODO: get comments from API
-
-    }
-
     saveChanges = (field, value) => {
         // TODO: save changes in store
         console.log("changes to post saved!")

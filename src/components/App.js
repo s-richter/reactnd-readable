@@ -16,6 +16,8 @@ import './Tooltip.css'
 // TODO: add new post and add new comment
 // TODO: CategoryView: filter posts according to category
 // TODO: PostDetail: filter comments that belong to the displayed post
+// TODO: implement voting
+// TODO: a home button on every page would be nice
 
 
 class App extends Component {
@@ -25,7 +27,7 @@ class App extends Component {
         <Container fluid>
           <Row>
             <Col>
-
+              {/* the title of the app */}
               <Header />
             </Col>
           </Row>
@@ -71,7 +73,7 @@ class App extends Component {
   //   return (
   //     <div className="App">
   //       <div className="App-header">
-  //         <img src={logo} className="App-logo" alt="logo" />
+  //         {/* <img src={logo} className="App-logo" alt="logo" /> */}
   //         <h2>Welcome to React</h2>
   //       </div>
   //       <p className="App-intro">
