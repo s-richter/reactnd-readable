@@ -23,7 +23,8 @@ export const categories = (
             return {
                 ...state,
                 isFetching: false,
-                items: action.items
+                items: action.items,
+                failedToLoadCategories: false
             }
             case ACTIONS.FAILURE_FETCH_CATEGORIES:
             return {
