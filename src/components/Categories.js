@@ -3,24 +3,14 @@ import { connect } from 'react-redux'
 import Category from './Category'
 import { fetchCategories } from '../actions'
 
-class Categories extends Component {
-    constructor() {
-        super()
-        // TODO: get category colors from store
-        this.categoryColors = {
-            "react": "#61DAFB",
-            "redux": "#764ABC",
-            "udacity": "#06ADDB"
-        }
-    }
-
+class Categories extends Component {  
     componentDidMount() {
         const { dispatch } = this.props
         dispatch(fetchCategories())
     }
 
     render() {
-        const { isFetching, failedToLoadCategories, items } = this.props
+        const { isFetching, failedToLoadCategories, items, categoryColors } = this.props
         return (
             <div className="categories">
                 <div className="categories-header">
@@ -42,7 +32,7 @@ class Categories extends Component {
                                             <Category
                                                 key={cat}
                                                 name={cat}
-                                                categoryColor={this.categoryColors[cat]}
+                                                categoryColor={categoryColors[cat]}
                                             />
                                         ))
                                     }
@@ -55,11 +45,12 @@ class Categories extends Component {
 }
 
 function mapStateToProps({ categories }) {
-    const { isFetching, failedToLoadCategories, items } = categories
+    const { isFetching, failedToLoadCategories, items, categoryColors } = categories    
     return {
         isFetching,
         failedToLoadCategories,
-        items
+        items,
+        categoryColors
     }
 }
 

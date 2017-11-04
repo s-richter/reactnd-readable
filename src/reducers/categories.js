@@ -2,6 +2,11 @@ import * as ACTIONS from '../actions'
 
 export const categories = (
     state = {
+        categoryColors: {
+            "react": "#61DAFB",
+            "redux": "#764ABC",
+            "udacity": "#06ADDB"
+        },
         isFetching: false,
         items: []
     },

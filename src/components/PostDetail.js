@@ -62,8 +62,7 @@ class PostDetail extends Component {
                             <h2>Comments</h2>
                         </div>
 
-                        {/* sorting */}
-                        {/* TODO: comments have not "sort by comment count" */}
+                        {/* sorting */}                        
                         <SortBy
                             itemType="comment"
                             onChange={(sortMethod) => this.sortComments(sortMethod)}
