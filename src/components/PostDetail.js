@@ -64,7 +64,10 @@ class PostDetail extends Component {
 
                         {/* sorting */}
                         {/* TODO: comments have not "sort by comment count" */}
-                        <SortBy onChange={(sortMethod) => this.sortComments(sortMethod)} />
+                        <SortBy
+                            itemType="comment"
+                            onChange={(sortMethod) => this.sortComments(sortMethod)}
+                        />
 
                         {/* add a new comment */}
                         <div className="list-of-comments-new-comment">
