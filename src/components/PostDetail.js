@@ -16,20 +16,22 @@ class PostDetail extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, postId } = this.props
-        dispatch(fetchPostById(postId))
+        const { dispatch, postId, post } = this.props
+        if (!post) {
+            dispatch(fetchPostById(postId))
+        }
         dispatch(fetchComments(postId))
     }
 
     sortComments(sortMethod) {
         const { dispatch, comments } = this.props
-        if (comments.items && comments.items.length > 0) {
+        if (comments && comments.length > 0) {
             dispatch(updateCommentSortMethod(sortMethod))
         }
     }
 
     render() {
-        const { isFetching, failedToLoadPost, comments } = this.props
+        const { isFetching, failedToLoadPost, comments, post } = this.props
         return (
             <Row className="post-detail">
                 <Col sm="12">
@@ -40,13 +42,15 @@ class PostDetail extends Component {
                         {/* the post */}
                         <div className="post-detail-post">
                             {
-                                failedToLoadPost
-                                    ? <div style={{ margin: '15px' }}>
-                                        There was an error loading the post.
-                                    </div>
-                                    : isFetching
-                                        ? <div style={{ margin: '15px' }}>Loading post...</div>
-                                        : <Post post={this.props.post} />
+                                isFetching
+                                    ? <div style={{ margin: '15px' }}>Loading post...</div>
+                                    : (
+                                        failedToLoadPost
+                                            ? <div style={{ margin: '15px' }}>
+                                                There was an error loading the post.
+                                            </div>
+                                            : <Post post={post} />
+                                    )
                             }
                         </div>
                     </div>
@@ -58,7 +62,7 @@ class PostDetail extends Component {
                             <h2>Comments</h2>
                         </div>
 
-                        {/* sorting */}                        
+                        {/* sorting */}
                         {/* TODO: comments have not "sort by comment count" */}
                         <SortBy onChange={(sortMethod) => this.sortComments(sortMethod)} />
 
@@ -72,8 +76,8 @@ class PostDetail extends Component {
                     {/* the comments */}
                     <div className="list-of-comments">
                         {
-                            comments.items.length > 0
-                                ? comments.items.map(comment => (
+                            comments.length > 0
+                                ? comments.map(comment => (
                                     <Comment
                                         key={comment.id}
                                         comment={comment} />
@@ -104,20 +108,23 @@ class PostDetail extends Component {
 }
 
 function mapStateToProps({ posts, comments }, ownProps) {
-    if (posts.items.length === 0) {
+    const { items } = posts
+    if (Object.keys(items).length === 0) {
         return {
+            isFetching: posts.isFetching,
             posts,
             comments,
             failedToLoadPost: true
         }
     }
-    const post = posts.items.find(p => p.id === ownProps.postId)
-    const { sortMethod, sortDirection } = comments
+    const post = items[ownProps.postId]
+    const { sortMethod, sortDirection, items: commentItems } = comments
     const sortingMethod = util.GetSortMethodByCriteria(sortMethod, sortDirection)
-    comments.items.sort(sortingMethod)
+    const sortedItems =
+        Object.keys(commentItems).map(key => commentItems[key]).sort(sortingMethod)
     return {
         post,
-        comments,
+        comments: sortedItems,
         failedToLoadPost: false
     }
 }

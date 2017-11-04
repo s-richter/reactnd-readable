@@ -6,7 +6,7 @@ export const comments = (
         isFetching: false,
         sortMethod: util.defaultSortingCriteria,
         sortDirection: util.defaultSortDirection,
-        items: []
+        items: {}
     },
     action
 ) => {
@@ -17,16 +17,27 @@ export const comments = (
                 isFetching: true
             }
         case ACTIONS.RECEIVE_COMMENTS:
-            return {
-                ...state,
-                isFetching: false,
-                items: action.items
-            }
+            return action.items.reduce(
+                (acc, val) => {
+                    return {
+                        ...acc,
+                        items: {
+                            ...acc.items,
+                            [val.id]: val
+                        }
+                    }
+                }, { ...state, isFetching: false }
+            )
+        // return {
+        //     ...state,
+        //     isFetching: false,
+        //     items: action.items
+        // }
         case ACTIONS.FAILURE_FETCH_COMMENTS:
             return {
                 ...state,
                 isFetching: false,
-                items: []
+                items: {}
             }
         case ACTIONS.SORT_COMMENTS:
             return {

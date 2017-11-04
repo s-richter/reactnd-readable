@@ -97,11 +97,11 @@ class ListOfPosts extends Component {
 function mapStateToProps({ posts, categories }) {
     const { isFetching, sortMethod, sortDirection, items } = posts
     const sortingMethod = util.GetSortMethodByCriteria(sortMethod, sortDirection)
-    items.sort(sortingMethod)
+    const sortedItems = Object.keys(items).map(key => items[key]).sort(sortingMethod)
     return {
-        isFetching,
-        sortMethod,
-        items
+        isFetching: isFetching,
+        sortMethod: sortMethod,
+        items : sortedItems
     }
 }
 
