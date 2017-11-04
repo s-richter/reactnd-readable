@@ -20,7 +20,7 @@ class Categories extends Component {
     }
 
     render() {
-        const { isFetching, items } = this.props
+        const { isFetching, failedToLoadCategories, items } = this.props
         return (
             <div className="categories">
                 <div className="categories-header">
@@ -31,17 +31,23 @@ class Categories extends Component {
                 {
                     isFetching
                         ? <div style={{ margin: '10px' }}>Loading...</div>
-                        : <div>
-                            {
-                                items.map(cat => (
-                                    <Category
-                                        key={cat}
-                                        name={cat}
-                                        categoryColor={this.categoryColors[cat]}
-                                    />
-                                ))
-                            }
-                        </div>
+                        : (
+                            failedToLoadCategories
+                                ? <div style={{ margin: '10px' }}>
+                                    There was an error loading the categories.
+                            </div>
+                                : <div>
+                                    {
+                                        items.map(cat => (
+                                            <Category
+                                                key={cat}
+                                                name={cat}
+                                                categoryColor={this.categoryColors[cat]}
+                                            />
+                                        ))
+                                    }
+                                </div>
+                        )
                 }
             </div>
         )
@@ -49,9 +55,10 @@ class Categories extends Component {
 }
 
 function mapStateToProps({ categories }) {
-    const { isFetching, items } = categories
+    const { isFetching, failedToLoadCategories, items } = categories
     return {
         isFetching,
+        failedToLoadCategories,
         items
     }
 }
