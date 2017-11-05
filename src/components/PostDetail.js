@@ -62,7 +62,7 @@ class PostDetail extends Component {
                             <h2>Comments</h2>
                         </div>
 
-                        {/* sorting */}                        
+                        {/* sorting */}
                         <SortBy
                             itemType="comment"
                             onChange={(sortMethod) => this.sortComments(sortMethod)}
@@ -119,12 +119,13 @@ function mapStateToProps({ posts, comments }, ownProps) {
             failedToLoadPost: true
         }
     }
+
     const post = items[ownProps.postId]
     const { sortMethod, sortDirection, items: commentItems } = comments
     const sortingMethod = util.GetSortMethodByCriteria(sortMethod, sortDirection)
-    const sortedItems =
-        Object.keys(commentItems).map(key => commentItems[key]).sort(sortingMethod)
+    const sortedItems = Object.keys(commentItems).map(key => commentItems[key]).sort(sortingMethod)
     return {
+        isFetching: posts.isFetching,
         post,
         comments: sortedItems,
         failedToLoadPost: false

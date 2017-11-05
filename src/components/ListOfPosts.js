@@ -14,14 +14,10 @@ class ListOfPosts extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, category, items } = this.props
-        // category is undefined, if this component shows all the posts
-        // items is empty, if the page was reloaded
-        if (Object.keys(items).length === 0) {
-            category
-                ? dispatch(fetchPosts(category))
-                : dispatch(fetchAllPosts())
-        }
+        const { dispatch, category } = this.props
+        category
+            ? dispatch(fetchPosts(category))
+            : dispatch(fetchAllPosts())
     }
 
     sortPosts(sortMethod) {
