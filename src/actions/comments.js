@@ -6,6 +6,7 @@ export const FAILURE_FETCH_COMMENTS = 'FAILURE_FETCH_COMMENTS'
 export const SORT_COMMENTS = 'SORT_COMMENTS'
 export const VOTE_UP_COMMENT = 'VOTE_UP_COMMENT'
 export const VOTE_DOWN_COMMENT = 'VOTE_DOWN_COMMENT'
+export const UPDATE_COMMENT_PROP = 'UPDATE_COMMENT_PROP'
 
 const headers = {
     Accept: 'application/json',
@@ -110,5 +111,14 @@ export function voteDownComment(commentId) {
     return {
         type: VOTE_DOWN_COMMENT,
         commentId
+    }
+}
+
+export function updateCommentProp(commentId, name, value) {
+    return {
+        type: UPDATE_COMMENT_PROP,
+        commentId,
+        name,
+        value
     }
 }

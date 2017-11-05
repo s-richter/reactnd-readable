@@ -182,6 +182,7 @@ class Post extends Component {
                         <EditItemInput
                             label="Post Title"
                             value={post.title}
+                            name="PostTitle"
                             onChange={() => console.log("The titel was changed")}
                         />
 
@@ -189,20 +190,23 @@ class Post extends Component {
                         <EditItemInput
                             label="Author"
                             value={post.author}
+                            name="PostAuthor"
                             onChange={() => console.log("The author was changed")}
                         />
 
                         {/* category */}
                         <EditItemSelect
                             label="Category"
-                            value={post.category}
+                            value={post.category}                            
+                            name="PostCategory"
                             onChange={() => console.log("The category was changed")}
                         />
 
                         {/* message */}
                         <EditItemTextArea
                             label="Message"
-                            value={post.body}
+                            value={post.body}                            
+                            name="PostBody"
                             onChange={() => console.log("The message was changed")}
                         />
                     </ModalBody>

@@ -10,7 +10,7 @@ import VoteChanger from './VoteChanger'
 import EditItemInput from './EditItemInput'
 import EditItemTextArea from './EditItemTextArea'
 import EditItemModalFooter from './EditItemModalFooter'
-import { applyVoteToComment } from '../actions'
+import { applyVoteToComment, updateCommentProp } from '../actions'
 import { VOTEDIRECTION } from '../util'
 
 class Comment extends Component {
@@ -31,6 +31,10 @@ class Comment extends Component {
         modal: false
     }
 
+    handleChange = (name, value) => {
+        this.props.updateCommentProp(this.props.comment.id, name, value)
+    }
+
     saveChanges = (field, value) => {
         // TODO: save changes in store
         console.log("changes to comment saved!")
@@ -47,11 +51,13 @@ class Comment extends Component {
     }
 
     onVoteUp = () => {
-        this.props.dispatch(applyVoteToComment(this.props.comment.id, VOTEDIRECTION.UP))
+        //this.props.dispatch(applyVoteToComment(this.props.comment.id, VOTEDIRECTION.UP))
+        this.props.applyVoteToComment(this.props.comment.id, VOTEDIRECTION.UP)
     }
 
     onVoteDown = () => {
-        this.props.dispatch(applyVoteToComment(this.props.comment.id, VOTEDIRECTION.DOWN))
+        // this.props.dispatch(applyVoteToComment(this.props.comment.id, VOTEDIRECTION.DOWN))
+        this.props.applyVoteToComment(this.props.comment.id, VOTEDIRECTION.DOWN)
     }
 
     render() {
@@ -126,6 +132,7 @@ class Comment extends Component {
                         <EditItemInput
                             label="Author"
                             value={comment.author}
+                            name="CommentAuthor"
                             onChange={() => console.log("The author was changed")}
                         />
 
@@ -133,7 +140,8 @@ class Comment extends Component {
                         <EditItemTextArea
                             label="Message"
                             value={comment.body}
-                            onChange={() => console.log("The message was changed")}
+                            name="CommentBody"
+                            onChange={(name, value) => this.handleChange(name, value)}
                         />
                     </ModalBody>
                     <EditItemModalFooter
@@ -148,9 +156,21 @@ class Comment extends Component {
 function mapStateToProps({ comments }, ownProps) {
     const { items } = comments
     const comment = items[ownProps.comment.id]
+    console.log(comment)
     return {
         comment
     }
 }
 
-export default connect(mapStateToProps)(Comment)
+function mapDispatchToProps(dispatch) {
+    return {
+        applyVoteToComment: (commentId, voteDirection) => {
+            dispatch(applyVoteToComment(commentId, voteDirection))
+        },
+        updateCommentProp: (commentId, name, value) => {
+            dispatch(updateCommentProp(commentId, name, value))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comment)

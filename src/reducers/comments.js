@@ -66,6 +66,18 @@ export const comments = (
                     }
                 }
             }
+        case ACTIONS.UPDATE_COMMENT_PROP:   
+        console.log([action.name.replace("Comment", "")])     
+            return {
+                ...state,
+                items: {
+                    ...state["items"],
+                    [action.commentId]: {
+                        ...state["items"][action.commentId],
+                        [action.name.replace("Comment", "").toLowerCase()]: action.value
+                    }
+                }
+            }
         default:
             return state
     }

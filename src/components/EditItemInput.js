@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 const propTypes = {
     label: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired
 }
@@ -15,7 +16,9 @@ function EditItemInput(props) {
                 <input
                     type="text"
                     value={props.value}
-                    onChange={(value) => { props.onChange(value) }} />
+                    onChange={event => {
+                        props.onChange(props.name, event.target.value)
+                    }} />
             </div>
         </div>
     )

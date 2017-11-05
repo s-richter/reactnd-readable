@@ -7,6 +7,9 @@ const propTypes = {
     toggleModal: PropTypes.func.isRequired
 }
 
+// TODO: on cancel a function has to be called that undos the state changes - one possibility is to
+//  simply get the data from the server again für that comment or post
+
 function EditItemModalFooter(props) {
     return (
         <ModalFooter>
@@ -15,13 +18,13 @@ function EditItemModalFooter(props) {
                 onClick={() => props.saveChanges()}
             >
                 Save
-                        </Button>
+            </Button>
             <Button
                 color="secondary"
                 onClick={() => props.toggleModal()}
             >
                 Cancel
-                        </Button>
+            </Button>
         </ModalFooter>
     )
 }
