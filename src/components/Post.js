@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
@@ -13,8 +14,10 @@ import EditItemInput from './EditItemInput'
 import EditItemSelect from './EditItemSelect'
 import EditItemTextArea from './EditItemTextArea'
 import EditItemModalFooter from './EditItemModalFooter'
+import { applyVoteToPost } from '../actions'
+import { VOTEDIRECTION } from '../util'
 
-export default class Post extends Component {
+class Post extends Component {
     static propTypes = {
         post: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -59,6 +62,14 @@ export default class Post extends Component {
         // TODO: mark post as deleted
         console.log("post " + this.props.post.id + " deleted!")
         // TODO: for all the comments: set the propery parentDeleted to true        
+    }
+
+    onVoteUp = () => {
+        this.props.dispatch(applyVoteToPost(this.props.post.id, VOTEDIRECTION.UP))
+    }
+
+    onVoteDown = () => {
+        this.props.dispatch(applyVoteToPost(this.props.post.id, VOTEDIRECTION.DOWN))
     }
 
     render() {
@@ -140,7 +151,10 @@ export default class Post extends Component {
                                     number={post.voteScore}
                                     colorize={true}
                                 />
-                                <VoteChanger countedName="post" />
+                                <VoteChanger
+                                    countedName="post"
+                                    onVoteUp={() => this.onVoteUp()}
+                                    onVoteDown={() => this.onVoteDown()} />
                             </div>
                         </div>
                     </div>
@@ -190,13 +204,23 @@ export default class Post extends Component {
                             label="Message"
                             value={post.body}
                             onChange={() => console.log("The message was changed")}
-                        />                       
+                        />
                     </ModalBody>
                     <EditItemModalFooter
                         saveChanges={this.saveChanges}
-                        toggleModal={this.toggleModal} />                   
+                        toggleModal={this.toggleModal} />
                 </Modal>
             </div>
         )
     }
 }
+
+function mapStateToProps({ posts }, ownProps) {
+    const { items } = posts
+    const post = items[ownProps.post.id]
+    return {
+        post
+    }
+}
+
+export default connect(mapStateToProps)(Post)

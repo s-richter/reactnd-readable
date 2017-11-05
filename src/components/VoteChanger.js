@@ -5,18 +5,22 @@ import PropTypes from 'prop-types'
 
 export default class VoteChanger extends Component {
     static propTypes = {
-        countedName: PropTypes.string.isRequired
+        countedName: PropTypes.string.isRequired,
+        onVoteUp: PropTypes.func.isRequired,
+        onVoteDown: PropTypes.func.isRequired
     }
 
     render() {
-        const voteUp = `Vote up this ${this.props.countedName}`
-        const voteDown = `Vote down this ${this.props.countedName}`
+        const { countedName, onVoteUp, onVoteDown } = this.props
+        const voteUp = `Vote up this ${countedName}`
+        const voteDown = `Vote down this ${countedName}`
         return (
             <div className="vote-counter">
                 <div
                     className="vote-counter-vote-up"
                     tooltip={voteUp}
                     flow="left"
+                    onClick={() => onVoteUp()}
                 >
                     <ThumbsUp
                         size={20}
@@ -26,6 +30,7 @@ export default class VoteChanger extends Component {
                     className="vote-counter-vote-down"
                     tooltip={voteDown}
                     flow="left"
+                    onClick={() => onVoteDown()}
                 >
                     <ThumbsDown
                         size={20}

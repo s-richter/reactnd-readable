@@ -14,6 +14,7 @@ import './Tooltip.css'
 // TODO: add new post and add new comment
 // TODO: implement voting
 // TODO: a home button on every page would be nice
+// TODO: after returning to a page, the drop down (sort by) always shows timestamp
 
 
 class App extends Component {

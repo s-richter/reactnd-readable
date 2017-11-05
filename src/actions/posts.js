@@ -9,6 +9,14 @@ export const REQUEST_POST_BY_ID = 'REQUEST_POST_BY_ID'
 export const RECEIVE_POST_BY_ID = 'RECEIVE_POST_BY_ID'
 export const FAILURE_FETCH_POST_BY_ID = 'FAILURE_FETCH_POST_BY_ID'
 export const SORT_POSTS = 'SORT_POSTS'
+export const VOTE_UP_POST = 'VOTE_UP_POST'
+export const VOTE_DOWN_POST = 'VOTE_DOWN_POST'
+
+const headers = {
+    Accept: 'application/json',
+    Authorization: 'whatever-you-want',
+    'Content-Type': 'application/json'
+}
 
 export function requestPosts(category) {
     return {
@@ -35,7 +43,9 @@ export function fetchPosts(category) {
         dispatch(requestPosts(category))
         return fetch(`${util.URI}/${category}/posts`,
             {
-                headers: { 'Authorization': 'because' }
+                headers: {
+                    ...headers
+                }
             })
             .then(response => {
                 if (!response.ok) {
@@ -74,7 +84,9 @@ export function fetchAllPosts() {
         dispatch(requestAllPosts())
         return fetch(`${util.URI}/posts`,
             {
-                headers: { 'Authorization': 'because' }
+                headers: {
+                    ...headers
+                }
             })
             .then(response => {
                 if (!response.ok) {
@@ -145,7 +157,9 @@ function fetchPostFromStore(dispatch, id) {
     return fetch(
         `${util.URI}/posts/${id}`,
         {
-            headers: { 'Authorization': 'because' }
+            headers: {
+                ...headers
+            }
         })
         .then(response => {
             if (!response.ok) {
@@ -170,5 +184,49 @@ export function updatePostSortMethod(sortMethod, sortDirection = util.defaultSor
         type: SORT_POSTS,
         sortMethod,
         sortDirection
+    }
+}
+
+export function applyVoteToPost(postId, voteDirection) {
+    return function (dispatch) {
+        const option = voteDirection
+        return fetch(`${util.URI}/posts/${postId}`, {
+            method: 'POST',
+            headers: {
+                ...headers
+            },
+            body: JSON.stringify({ option })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText)
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                console.log(error)
+                return null
+            })
+            .then(json => {
+                if (voteDirection === util.VOTEDIRECTION.UP) {
+                    dispatch(voteUpPost(postId))
+                } else if (voteDirection === util.VOTEDIRECTION.DOWN) {
+                    dispatch(voteDownPost(postId))
+                }
+            })
+    }
+}
+
+export function voteUpPost(postId) {
+    return {
+        type: VOTE_UP_POST,
+        postId
+    }
+}
+
+export function voteDownPost(postId) {
+    return {
+        type: VOTE_DOWN_POST,
+        postId
     }
 }

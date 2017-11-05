@@ -26,17 +26,16 @@ export const comments = (
                             [val.id]: val
                         }
                     }
-                }, { ...state, isFetching: false }
+                }, {
+                    ...state,
+                    isFetching: false
+                }
             )
-        // return {
-        //     ...state,
-        //     isFetching: false,
-        //     items: action.items
-        // }
         case ACTIONS.FAILURE_FETCH_COMMENTS:
             return {
                 ...state,
                 isFetching: false,
+                failedToLoadComments: true,
                 items: {}
             }
         case ACTIONS.SORT_COMMENTS:
@@ -44,6 +43,28 @@ export const comments = (
                 ...state,
                 sortMethod: action.sortMethod,
                 sortDirection: action.sortDirection
+            }
+        case ACTIONS.VOTE_UP_COMMENT:
+            return {
+                ...state,
+                items: {
+                    ...state["items"],
+                    [action.commentId]: {
+                        ...state["items"][action.commentId],
+                        voteScore: state["items"][action.commentId]["voteScore"] + 1
+                    }
+                }
+            }
+        case ACTIONS.VOTE_DOWN_COMMENT:
+            return {
+                ...state,
+                items: {
+                    ...state["items"],
+                    [action.commentId]: {
+                        ...state["items"][action.commentId],
+                        voteScore: state["items"][action.commentId]["voteScore"] - 1
+                    }
+                }
             }
         default:
             return state

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PropTypes from 'prop-types'
 import NoImage from 'react-icons/lib/fa/image'
@@ -9,8 +10,10 @@ import VoteChanger from './VoteChanger'
 import EditItemInput from './EditItemInput'
 import EditItemTextArea from './EditItemTextArea'
 import EditItemModalFooter from './EditItemModalFooter'
+import { applyVoteToComment } from '../actions'
+import { VOTEDIRECTION } from '../util'
 
-export default class Comment extends Component {
+class Comment extends Component {
     static propTypes = {
         comment: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -41,6 +44,14 @@ export default class Comment extends Component {
     deleteComment = () => {
         // TODO: mark comment as deleted
         console.log("comment " + this.props.comment.id + " deleted!")
+    }
+
+    onVoteUp = () => {
+        this.props.dispatch(applyVoteToComment(this.props.comment.id, VOTEDIRECTION.UP))
+    }
+
+    onVoteDown = () => {
+        this.props.dispatch(applyVoteToComment(this.props.comment.id, VOTEDIRECTION.DOWN))
     }
 
     render() {
@@ -85,7 +96,11 @@ export default class Comment extends Component {
                                     number={comment.voteScore}
                                     colorize={true}
                                 />
-                                <VoteChanger countedName="comment" />
+                                <VoteChanger
+                                    countedName="comment"
+                                    onVoteUp={this.onVoteUp}
+                                    onVoteDown={this.onVoteDown}
+                                />
                             </div>
                         </div>
                     </div>
@@ -123,9 +138,19 @@ export default class Comment extends Component {
                     </ModalBody>
                     <EditItemModalFooter
                         saveChanges={this.saveChanges}
-                        toggleModal={this.toggleModal} />                  
+                        toggleModal={this.toggleModal} />
                 </Modal>
             </div>
         )
     }
 }
+
+function mapStateToProps({ comments }, ownProps) {
+    const { items } = comments
+    const comment = items[ownProps.comment.id]
+    return {
+        comment
+    }
+}
+
+export default connect(mapStateToProps)(Comment)

@@ -114,3 +114,8 @@ export function sortByCommentCountDescending(a, b) {
             : b.commentCount
     return a_nonnull < b_nonnull ? 1 : (a_nonnull === b_nonnull ? 0 : -1)
 }
+
+export const VOTEDIRECTION = {
+    UP: 'upVote',
+    DOWN: 'downVote'
+}
