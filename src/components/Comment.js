@@ -69,7 +69,7 @@ class Comment extends Component {
                                 <h4>{comment.title}</h4>
                             </div>
                             <div className="comment-author">
-                                written by {comment.author} @ {new Date(comment.timestamp).toLocaleString()}
+                                last edited by {comment.author} @ {new Date(comment.timestamp).toLocaleString()}
                             </div>
                         </div>
 

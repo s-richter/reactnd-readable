@@ -8,13 +8,12 @@ import PostDetail from './PostDetail'
 import './App.css';
 import './Tooltip.css'
 
+// TODO: delete comment or post
 // TODO: when a post gets deleted, all its comments have set their property parentDeleted to true
 // TODO: enable the user to pick a picture from a list to show for the post
 // TODO: add new post and add new comment
 // TODO: a home button on every page would be nice
-// TODO: after returning to a page, the drop down (sort by) always shows timestamp
 // TODO: validation when a comment or post has been changed
-
 
 class App extends Component {
   render() {

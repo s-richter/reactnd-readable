@@ -48,7 +48,8 @@ export default class EditCommentForm extends Component {
     onSaveChanges = () => {
         const values = {
             author: this.state.author,
-            body: this.state.body
+            body: this.state.body,
+            timestamp: Date.now()
         }
         this.props.saveChanges(values)
         this.props.toggleModal()

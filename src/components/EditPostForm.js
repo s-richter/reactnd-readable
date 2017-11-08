@@ -57,7 +57,8 @@ export default class EditPostForm extends Component {
             author: this.state.author,
             title: this.state.title,
             body: this.state.body,
-            category: this.state.category
+            category: this.state.category,
+            timestamp: Date.now()
         }
         this.props.saveChanges(values)
         this.props.toggleModal()

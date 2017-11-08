@@ -82,7 +82,7 @@ class Post extends Component {
                                 }
                             </div>
                             <div className="post-author">
-                                written by {post.author} @ {new Date(post.timestamp).toLocaleString()}
+                                last edited by {post.author} @ {new Date(post.timestamp).toLocaleString()}
                             </div>
                             <div className="post-category">
                                 {
