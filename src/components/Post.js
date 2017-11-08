@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-//import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import NoImage from 'react-icons/lib/fa/image'
@@ -11,10 +10,6 @@ import CommentIcon from 'react-icons/lib/fa/comment-o'
 import VoteChanger from './VoteChanger'
 import EditPostForm from './EditPostForm'
 import History from './History'
-//import EditItemInput from './EditItemInput'
-//import EditItemSelect from './EditItemSelect'
-//import EditItemTextArea from './EditItemTextArea'
-//import EditItemModalFooter from './EditItemModalFooter'
 import { applyVoteToPost, saveChangesToPost } from '../actions'
 import { VOTEDIRECTION } from '../util'
 
@@ -35,18 +30,6 @@ class Post extends Component {
 
     state = {
         modal: false
-    }
-
-    constructor() {
-        super()
-
-        this.modalRequested = false;
-        // TODO: get category colors from store
-        this.categoryColors = {
-            "react": "#00d8ff",
-            "redux": "#764ABC",
-            "udacity": "#06ADDB"
-        }
     }
 
     toggleModal = () => {
@@ -72,7 +55,7 @@ class Post extends Component {
     }
 
     render() {
-        const { post } = this.props
+        const { post, categoryColors } = this.props
         const showDetails = History.location.pathname.includes("/posts/")
         const link = `/posts/${post.id}`
         return (
@@ -110,7 +93,7 @@ class Post extends Component {
                                 <span
                                     className="post-category-name"
                                     style={{
-                                        color: `${this.categoryColors[post.category]}`
+                                        color: `${categoryColors[post.category]}`
                                     }}
                                 >
                                     {post.category}
@@ -182,11 +165,12 @@ class Post extends Component {
     }
 }
 
-function mapStateToProps({ posts }, ownProps) {
+function mapStateToProps({ posts, categories }, ownProps) {
     const { items } = posts
     const post = items[ownProps.post.id]
     return {
-        post
+        post,
+        categoryColors: categories.categoryColors
     }
 }
 
