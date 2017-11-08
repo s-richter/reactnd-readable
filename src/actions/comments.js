@@ -115,8 +115,6 @@ export function voteDownComment(commentId) {
 }
 
 export function saveChangesToComment(commentId, values) {
-    // const author = values["author"]
-    // const body = values["body"]
     return function (dispatch) {
         return fetch(`${util.URI}/comments/${commentId}`, {
             method: 'PUT',

@@ -32,8 +32,8 @@ class Comment extends Component {
         this.setState({ modal: !this.state.modal })
     }
 
-    onSaveChanges = (name, value) => {
-        this.props.saveChangesToComment(this.props.comment.id, name, value)
+    onSaveChanges = (values) => {
+        this.props.saveChangesToComment(this.props.comment.id, values)
     }
 
     onDelete = () => {
@@ -135,8 +135,8 @@ function mapDispatchToProps(dispatch) {
         applyVoteToComment: (commentId, voteDirection) => {
             dispatch(applyVoteToComment(commentId, voteDirection))
         },
-        saveChangesToComment: (commentId, name, value) => {
-            dispatch(saveChangesToComment(commentId, name, value))
+        saveChangesToComment: (commentId, values) => {
+            dispatch(saveChangesToComment(commentId, values))
         }
     }
 }

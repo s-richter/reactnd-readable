@@ -36,8 +36,8 @@ class Post extends Component {
         this.setState({ modal: !this.state.modal })
     }
 
-    onSaveChanges = (name, value) => {
-        this.props.saveChangesToPost(this.props.post.id, name, value)
+    onSaveChanges = (values) => {
+        this.props.saveChangesToPost(this.props.post.id, values)
     }
 
     onDelete = () => {
