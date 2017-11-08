@@ -11,6 +11,7 @@ export const FAILURE_FETCH_POST_BY_ID = 'FAILURE_FETCH_POST_BY_ID'
 export const SORT_POSTS = 'SORT_POSTS'
 export const VOTE_UP_POST = 'VOTE_UP_POST'
 export const VOTE_DOWN_POST = 'VOTE_DOWN_POST'
+export const UPDATE_POST_PROP = 'UPDATE_POST_PROP'
 
 const headers = {
     Accept: 'application/json',
@@ -228,5 +229,39 @@ export function voteDownPost(postId) {
     return {
         type: VOTE_DOWN_POST,
         postId
+    }
+}
+
+export function saveChangesToPost(postId, values) {
+    return function (dispatch) {
+        return fetch(`${util.URI}/posts/${postId}`, {
+            method: 'PUT',
+            headers: {
+                ...headers
+            },
+            body: JSON.stringify({ ...values })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText)
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                console.log(error)
+                return null
+            })
+            .then(json => {
+                dispatch(updatePostProp(postId, values))
+            })
+
+    }
+}
+
+export function updatePostProp(postId, values) {
+    return {
+        type: UPDATE_POST_PROP,
+        postId,
+        values
     }
 }

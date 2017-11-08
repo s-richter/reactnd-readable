@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+//import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import NoImage from 'react-icons/lib/fa/image'
@@ -9,12 +9,13 @@ import DeleteItemButton from './DeleteItemButton'
 import DisplayCount from './DisplayCount'
 import CommentIcon from 'react-icons/lib/fa/comment-o'
 import VoteChanger from './VoteChanger'
+import EditPostForm from './EditPostForm'
 import History from './History'
-import EditItemInput from './EditItemInput'
-import EditItemSelect from './EditItemSelect'
-import EditItemTextArea from './EditItemTextArea'
-import EditItemModalFooter from './EditItemModalFooter'
-import { applyVoteToPost } from '../actions'
+//import EditItemInput from './EditItemInput'
+//import EditItemSelect from './EditItemSelect'
+//import EditItemTextArea from './EditItemTextArea'
+//import EditItemModalFooter from './EditItemModalFooter'
+import { applyVoteToPost, saveChangesToPost } from '../actions'
 import { VOTEDIRECTION } from '../util'
 
 class Post extends Component {
@@ -48,28 +49,26 @@ class Post extends Component {
         }
     }
 
-    saveChanges = (field, value) => {
-        // TODO: save changes in store
-        console.log("changes to post saved!")
-        this.toggleModal()
-    }
-
     toggleModal = () => {
         this.setState({ modal: !this.state.modal })
     }
 
-    deletePost = () => {
+    onSaveChanges = (name, value) => {
+        this.props.saveChangesToPost(this.props.post.id, name, value)
+    }
+
+    onDelete = () => {
         // TODO: mark post as deleted
         console.log("post " + this.props.post.id + " deleted!")
         // TODO: for all the comments: set the propery parentDeleted to true        
     }
 
     onVoteUp = () => {
-        this.props.dispatch(applyVoteToPost(this.props.post.id, VOTEDIRECTION.UP))
+        this.props.applyVoteToPost(this.props.post.id, VOTEDIRECTION.UP)
     }
 
     onVoteDown = () => {
-        this.props.dispatch(applyVoteToPost(this.props.post.id, VOTEDIRECTION.DOWN))
+        this.props.applyVoteToPost(this.props.post.id, VOTEDIRECTION.DOWN)
     }
 
     render() {
@@ -126,7 +125,7 @@ class Post extends Component {
                                 onEdit={this.toggleModal} />
                             <DeleteItemButton
                                 itemName="post"
-                                onDelete={this.deletePost} />
+                                onDelete={this.onDelete} />
                         </div>
 
                         {/* statistics for the post and controls to comment and vote */}
@@ -172,48 +171,12 @@ class Post extends Component {
                 </div>
 
                 {/* the modal dialog to edit the post */}
-                <Modal
-                    isOpen={this.state.modal}
-                    toggle={this.toggleModal}
-                >
-                    <ModalHeader toggle={this.toggleModal}>Edit Post</ModalHeader>
-                    <ModalBody>
-                        {/* title */}
-                        <EditItemInput
-                            label="Post Title"
-                            value={post.title}
-                            name="PostTitle"
-                            onChange={() => console.log("The titel was changed")}
-                        />
-
-                        {/* author */}
-                        <EditItemInput
-                            label="Author"
-                            value={post.author}
-                            name="PostAuthor"
-                            onChange={() => console.log("The author was changed")}
-                        />
-
-                        {/* category */}
-                        <EditItemSelect
-                            label="Category"
-                            value={post.category}                            
-                            name="PostCategory"
-                            onChange={() => console.log("The category was changed")}
-                        />
-
-                        {/* message */}
-                        <EditItemTextArea
-                            label="Message"
-                            value={post.body}                            
-                            name="PostBody"
-                            onChange={() => console.log("The message was changed")}
-                        />
-                    </ModalBody>
-                    <EditItemModalFooter
-                        saveChanges={this.saveChanges}
-                        toggleModal={this.toggleModal} />
-                </Modal>
+                <EditPostForm
+                    isVisible={this.state.modal}
+                    toggleModal={this.toggleModal}
+                    saveChanges={this.onSaveChanges}
+                    post={this.props.post}
+                />
             </div>
         )
     }
@@ -227,4 +190,15 @@ function mapStateToProps({ posts }, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(Post)
+function mapDispatchToProps(dispatch) {
+    return {
+        applyVoteToPost: (postId, voteDirection) => {
+            dispatch(applyVoteToPost(postId, voteDirection))
+        },
+        saveChangesToPost: (postId, name, value) => {
+            dispatch(saveChangesToPost(postId, name, value))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post)

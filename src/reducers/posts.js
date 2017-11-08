@@ -105,6 +105,17 @@ export const posts = (
                     }
                 }
             }
+        case ACTIONS.UPDATE_POST_PROP:
+            return {
+                ...state,
+                items: {
+                    ...state["items"],
+                    [action.postId]: {
+                        ...state["items"][action.postId],
+                        ...action.values
+                    }
+                }
+            }
         default:
             return state
     }

@@ -3,25 +3,22 @@ import { Button, ModalFooter } from 'reactstrap';
 import PropTypes from 'prop-types'
 
 const propTypes = {
-    saveChanges: PropTypes.func.isRequired,
-    toggleModal: PropTypes.func.isRequired
+    onSaveChanges: PropTypes.func.isRequired,
+    onDiscardChanges: PropTypes.func.isRequired
 }
-
-// TODO: on cancel a function has to be called that undos the state changes - one possibility is to
-//  simply get the data from the server again für that comment or post
 
 function EditItemModalFooter(props) {
     return (
         <ModalFooter>
             <Button
                 color="primary"
-                onClick={() => props.saveChanges()}
+                onClick={() => props.onSaveChanges()}
             >
                 Save
             </Button>
             <Button
                 color="secondary"
-                onClick={() => props.toggleModal()}
+                onClick={() => props.onDiscardChanges()}
             >
                 Cancel
             </Button>

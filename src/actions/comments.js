@@ -114,11 +114,38 @@ export function voteDownComment(commentId) {
     }
 }
 
-export function updateCommentProp(commentId, name, value) {
+export function saveChangesToComment(commentId, values) {
+    // const author = values["author"]
+    // const body = values["body"]
+    return function (dispatch) {
+        return fetch(`${util.URI}/comments/${commentId}`, {
+            method: 'PUT',
+            headers: {
+                ...headers
+            },
+            body: JSON.stringify({ ...values })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText)
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                console.log(error)
+                return null
+            })
+            .then(json => {
+                dispatch(updateCommentProp(commentId, values))
+            })
+
+    }
+}
+
+export function updateCommentProp(commentId, values) {
     return {
         type: UPDATE_COMMENT_PROP,
         commentId,
-        name,
-        value
+        values
     }
 }

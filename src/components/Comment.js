@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PropTypes from 'prop-types'
 import NoImage from 'react-icons/lib/fa/image'
 import EditItemButton from './EditItemButton'
 import DeleteItemButton from './DeleteItemButton'
 import DisplayCount from './DisplayCount'
 import VoteChanger from './VoteChanger'
-import EditItemInput from './EditItemInput'
-import EditItemTextArea from './EditItemTextArea'
-import EditItemModalFooter from './EditItemModalFooter'
-import { applyVoteToComment, updateCommentProp } from '../actions'
+import EditCommentForm from './EditCommentForm'
+import { applyVoteToComment, saveChangesToComment } from '../actions'
 import { VOTEDIRECTION } from '../util'
 
 class Comment extends Component {
@@ -31,32 +28,24 @@ class Comment extends Component {
         modal: false
     }
 
-    handleChange = (name, value) => {
-        this.props.updateCommentProp(this.props.comment.id, name, value)
-    }
-
-    saveChanges = (field, value) => {
-        // TODO: save changes in store
-        console.log("changes to comment saved!")
-        this.toggleModal()
-    }
-
     toggleModal = () => {
         this.setState({ modal: !this.state.modal })
     }
 
-    deleteComment = () => {
+    onSaveChanges = (name, value) => {
+        this.props.saveChangesToComment(this.props.comment.id, name, value)
+    }
+
+    onDelete = () => {
         // TODO: mark comment as deleted
         console.log("comment " + this.props.comment.id + " deleted!")
     }
 
     onVoteUp = () => {
-        //this.props.dispatch(applyVoteToComment(this.props.comment.id, VOTEDIRECTION.UP))
         this.props.applyVoteToComment(this.props.comment.id, VOTEDIRECTION.UP)
     }
 
     onVoteDown = () => {
-        // this.props.dispatch(applyVoteToComment(this.props.comment.id, VOTEDIRECTION.DOWN))
         this.props.applyVoteToComment(this.props.comment.id, VOTEDIRECTION.DOWN)
     }
 
@@ -91,7 +80,7 @@ class Comment extends Component {
                                 onEdit={this.toggleModal} />
                             <DeleteItemButton
                                 itemName="comment"
-                                onDelete={this.deleteComment} />
+                                onDelete={this.onDelete} />
                         </div>
 
                         {/* statistics for the comment and controls to vote */}
@@ -122,32 +111,12 @@ class Comment extends Component {
                 </div>
 
                 {/* the modal dialog to edit the comment */}
-                <Modal
-                    isOpen={this.state.modal}
-                    toggle={this.toggleModal}
-                >
-                    <ModalHeader toggle={this.toggleModal}>Edit Comment</ModalHeader>
-                    <ModalBody>
-                        {/* author */}
-                        <EditItemInput
-                            label="Author"
-                            value={comment.author}
-                            name="CommentAuthor"
-                            onChange={() => console.log("The author was changed")}
-                        />
-
-                        {/* message */}
-                        <EditItemTextArea
-                            label="Message"
-                            value={comment.body}
-                            name="CommentBody"
-                            onChange={(name, value) => this.handleChange(name, value)}
-                        />
-                    </ModalBody>
-                    <EditItemModalFooter
-                        saveChanges={this.saveChanges}
-                        toggleModal={this.toggleModal} />
-                </Modal>
+                <EditCommentForm
+                    isVisible={this.state.modal}
+                    toggleModal={this.toggleModal}
+                    saveChanges={this.onSaveChanges}
+                    comment={this.props.comment}
+                />
             </div>
         )
     }
@@ -156,7 +125,6 @@ class Comment extends Component {
 function mapStateToProps({ comments }, ownProps) {
     const { items } = comments
     const comment = items[ownProps.comment.id]
-    console.log(comment)
     return {
         comment
     }
@@ -167,8 +135,8 @@ function mapDispatchToProps(dispatch) {
         applyVoteToComment: (commentId, voteDirection) => {
             dispatch(applyVoteToComment(commentId, voteDirection))
         },
-        updateCommentProp: (commentId, name, value) => {
-            dispatch(updateCommentProp(commentId, name, value))
+        saveChangesToComment: (commentId, name, value) => {
+            dispatch(saveChangesToComment(commentId, name, value))
         }
     }
 }

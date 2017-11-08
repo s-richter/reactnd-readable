@@ -13,10 +13,6 @@ function EditItemTextArea(props) {
         <div className="edit-item-textarea">
             <div className="edit-label">{props.label}</div>
             <div className="edit-input">
-                {/* <textarea
-                    type="text"
-                    value={props.value}
-                    onChange={(value) => { props.onChange(value) }} /> */}
                 <textarea
                     type="text"
                     value={props.value}

@@ -28,7 +28,8 @@ export const comments = (
                     }
                 }, {
                     ...state,
-                    isFetching: false
+                    isFetching: false,
+                    items: {}
                 }
             )
         case ACTIONS.FAILURE_FETCH_COMMENTS:
@@ -66,15 +67,14 @@ export const comments = (
                     }
                 }
             }
-        case ACTIONS.UPDATE_COMMENT_PROP:   
-        console.log([action.name.replace("Comment", "")])     
+        case ACTIONS.UPDATE_COMMENT_PROP:
             return {
                 ...state,
                 items: {
                     ...state["items"],
                     [action.commentId]: {
                         ...state["items"][action.commentId],
-                        [action.name.replace("Comment", "").toLowerCase()]: action.value
+                        ...action.values
                     }
                 }
             }

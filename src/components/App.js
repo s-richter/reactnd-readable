@@ -14,6 +14,7 @@ import './Tooltip.css'
 // TODO: implement voting
 // TODO: a home button on every page would be nice
 // TODO: after returning to a page, the drop down (sort by) always shows timestamp
+// TODO: validation when a comment or post has been changed
 
 
 class App extends Component {
