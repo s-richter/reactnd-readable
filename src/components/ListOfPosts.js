@@ -46,7 +46,9 @@ class ListOfPosts extends Component {
                     </div>
 
                     {/* sorting */}
-                    <SortBy onChange={(sortMethod) => this.sortPosts(sortMethod)} />
+                    <SortBy
+                        itemType="post"
+                        onChange={(sortMethod) => this.sortPosts(sortMethod)} />
 
                     {/* add new post */}
                     <div className="list-of-posts-new-post">
