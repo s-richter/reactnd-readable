@@ -116,6 +116,7 @@ class Comment extends Component {
                     toggleModal={this.toggleModal}
                     saveChanges={this.onSaveChanges}
                     comment={this.props.comment}
+                    isNewComment={false}
                 />
             </div>
         )

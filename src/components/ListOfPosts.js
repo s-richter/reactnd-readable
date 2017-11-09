@@ -52,7 +52,7 @@ class ListOfPosts extends Component {
 
                     {/* add new post */}
                     <div className="list-of-posts-new-post">
-                        <NewPost />
+                        <NewPost size={25} />
                     </div>
                 </div>
 
@@ -88,7 +88,7 @@ class ListOfPosts extends Component {
 
                     {/* add new post */}
                     <div className="list-of-posts-new-post">
-                        <NewPost />
+                        <NewPost size={25} />
                     </div>
                 </div>
             </div>

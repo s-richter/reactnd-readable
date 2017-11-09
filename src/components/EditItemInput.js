@@ -5,7 +5,8 @@ const propTypes = {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    autoFocus: PropTypes.bool
 }
 
 function EditItemInput(props) {
@@ -13,12 +14,22 @@ function EditItemInput(props) {
         <div className="edit-item-input">
             <div className="edit-label">{props.label}</div>
             <div className="edit-input">
-                <input
-                    type="text"
-                    value={props.value}
-                    onChange={event => {
-                        props.onChange(props.name, event.target.value)
-                    }} />
+                {
+                    props.autoFocus
+                        ? <input
+                            type="text"
+                            autoFocus
+                            value={props.value}
+                            onChange={event => {
+                                props.onChange(props.name, event.target.value)
+                            }} />
+                        : <input
+                            type="text"
+                            value={props.value}
+                            onChange={event => {
+                                props.onChange(props.name, event.target.value)
+                            }} />
+                }
             </div>
         </div>
     )

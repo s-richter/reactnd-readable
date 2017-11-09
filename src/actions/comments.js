@@ -136,7 +136,6 @@ export function saveChangesToComment(commentId, values) {
             .then(json => {
                 dispatch(updateCommentProp(commentId, values))
             })
-
     }
 }
 
@@ -145,5 +144,30 @@ export function updateCommentProp(commentId, values) {
         type: UPDATE_COMMENT_PROP,
         commentId,
         values
+    }
+}
+
+export function saveNewComment(commentId, values) {
+    return function (dispatch) {
+        return fetch(`${util.URI}/comments/`, {
+            method: 'POST',
+            headers: {
+                ...headers
+            },
+            body: JSON.stringify({ ...values })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText)
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                console.log(error)
+                return null
+            })
+            .then(json => {
+                dispatch(updateCommentProp(commentId, values))
+            })
     }
 }

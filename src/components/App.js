@@ -12,8 +12,8 @@ import './Tooltip.css'
 // TODO: when a post gets deleted, all its comments have set their property parentDeleted to true
 // TODO: enable the user to pick a picture from a list to show for the post
 // TODO: add new post and add new comment
-// TODO: a home button on every page would be nice
-// TODO: validation when a comment or post has been changed
+// TODO: update comment count on post after a comment was added or deleted
+// TODO: the server api sets the vorescore of every new comment and post to 1 - decrease
 
 class App extends Component {
   render() {

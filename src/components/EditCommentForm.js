@@ -19,12 +19,14 @@ export default class EditCommentForm extends Component {
             voteScore: PropTypes.number.isRequired,
             deleted: PropTypes.bool,
             parentDeleted: PropTypes.bool
-        })
+        }),
+        isNewComment: PropTypes.bool.isRequired
     }
 
     state = {
         author: '',
-        body: ''
+        body: '',
+        hasErrors: false
     }
 
     componentDidMount() {
@@ -35,7 +37,8 @@ export default class EditCommentForm extends Component {
         const { comment } = this.props
         this.setState({
             author: comment.author,
-            body: comment.body
+            body: comment.body,
+            hasErrors: false
         })
     }
 
@@ -46,13 +49,20 @@ export default class EditCommentForm extends Component {
     }
 
     onSaveChanges = () => {
-        const values = {
-            author: this.state.author,
-            body: this.state.body,
-            timestamp: Date.now()
+        if (this.validateForm()) {
+            const values = {
+                author: this.state.author,
+                body: this.state.body,
+                timestamp: Date.now()
+            }
+            this.setState({ hasErrors: false })
+            this.props.saveChanges(values)
+            // clear the fields after the comment was saved
+            this.initializeFormFields()
+            this.props.toggleModal()
+        } else {
+            this.setState({ hasErrors: true })
         }
-        this.props.saveChanges(values)
-        this.props.toggleModal()
     }
 
     onDiscardChanges = () => {
@@ -60,15 +70,30 @@ export default class EditCommentForm extends Component {
         this.props.toggleModal()
     }
 
-    render() {
-        const { isVisible, toggleModal } = this.props
+    validateForm = () => {
+        // just some basic validation
         const { author, body } = this.state
+        return author
+            && author !== ""
+            && body
+            && body !== ""
+    }
+
+    render() {
+        const { isVisible, toggleModal, isNewComment } = this.props
+        const { author, body, hasErrors } = this.state
         return (
             <Modal
                 isOpen={isVisible}
                 toggle={toggleModal}
             >
-                <ModalHeader toggle={toggleModal}>Edit Comment</ModalHeader>
+                <ModalHeader toggle={toggleModal}>
+                    {
+                        isNewComment
+                            ? "Add new comment"
+                            : "Edit comment"
+                    }
+                </ModalHeader>
                 <ModalBody>
                     {/* author */}
                     <EditItemInput
@@ -76,6 +101,7 @@ export default class EditCommentForm extends Component {
                         value={author}
                         name="author"
                         onChange={(name, value) => this.onChange("author", value)}
+                        autoFocus
                     />
 
                     {/* message */}
@@ -85,6 +111,15 @@ export default class EditCommentForm extends Component {
                         name="body"
                         onChange={(name, value) => this.onChange("body", value)}
                     />
+
+                    {/* error message */}
+                    {
+                        hasErrors
+                            ? <div className="edit-form-error-message">
+                                Please enter a valid author and message.
+                            </div>
+                            : ""
+                    }
                 </ModalBody>
                 <EditItemModalFooter
                     onSaveChanges={this.onSaveChanges}

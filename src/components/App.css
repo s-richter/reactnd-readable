@@ -18,11 +18,24 @@ body, .app {
 }
 
 .header {
+  position: relative;
   padding: 10px 0;
   background: #3399ff;
   text-align: center;
   color: white;
 }
+
+.home-link {
+  position: absolute;
+  top: 85px;
+  left: 10px;
+}
+
+.home-link a {
+  color: white;
+  text-decoration: none;
+}
+
 
 
 /* categories */
@@ -454,4 +467,11 @@ body, .app {
 .edit-input textarea {
   width: 100%;
   min-height: 200px;
+}
+
+.edit-form-error-message {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-weight: bold;
+  color: red;
 }

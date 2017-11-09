@@ -159,6 +159,7 @@ class Post extends Component {
                     toggleModal={this.toggleModal}
                     saveChanges={this.onSaveChanges}
                     post={this.props.post}
+                    isNewPost={false}
                 />
             </div>
         )

@@ -70,6 +70,11 @@ class PostDetail extends Component {
                         {/* add a new comment */}
                         <div className="list-of-comments-new-comment">
                             <NewComment
+                                postId={
+                                    post
+                                        ? post.id
+                                        : "0"
+                                }
                                 size={25} />
                         </div>
                     </div>
@@ -99,7 +104,13 @@ class PostDetail extends Component {
 
                         {/* add new comment */}
                         <div className="list-of-comments-new-comment">
-                            <NewComment />
+                            <NewComment
+                                postId={
+                                    post
+                                        ? post.id
+                                        : "0"
+                                }
+                                size={25} />
                         </div>
                     </div>
                 </Col>

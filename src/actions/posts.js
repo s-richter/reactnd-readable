@@ -265,3 +265,29 @@ export function updatePostProp(postId, values) {
         values
     }
 }
+
+export function saveNewPost(postId, values) {
+    return function (dispatch) {
+        return fetch(`${util.URI}/posts/`, {
+            method: 'POST',
+            headers: {
+                ...headers
+            },
+            body: JSON.stringify({ ...values })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText)
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                console.log(error)
+                return null
+            })
+            .then(json => {
+                dispatch(updatePostProp(postId, values))
+            })
+
+    }
+}
