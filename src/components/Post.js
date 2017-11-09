@@ -180,8 +180,8 @@ function mapDispatchToProps(dispatch) {
         applyVoteToPost: (postId, voteDirection) => {
             dispatch(applyVoteToPost(postId, voteDirection))
         },
-        saveChangesToPost: (postId, name, value) => {
-            dispatch(saveChangesToPost(postId, name, value))
+        saveChangesToPost: (postId, values) => {
+            dispatch(saveChangesToPost(postId, values))
         }
     }
 }

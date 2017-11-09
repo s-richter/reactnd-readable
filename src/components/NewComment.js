@@ -4,7 +4,7 @@ import * as uuid from 'uuid'
 import PropTypes from 'prop-types'
 import CommentIcon from 'react-icons/lib/fa/comment-o'
 import EditCommentForm from './EditCommentForm'
-import { saveNewComment } from '../actions'
+import { saveNewComment, updateCommentCount } from '../actions'
 
 class NewComment extends Component {
     static propTypes = {
@@ -48,6 +48,7 @@ class NewComment extends Component {
     onSaveChanges = (values) => {
         this.props.saveNewComment(
             this.comment.id,
+            this.props.postId,
             {
                 ...this.comment,
                 ...values
@@ -82,8 +83,9 @@ class NewComment extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        saveNewComment: (commentId, values) => {
+        saveNewComment: (commentId, postId, values) => {
             dispatch(saveNewComment(commentId, values))
+            dispatch(updateCommentCount(postId, 1))
         }
     }
 }

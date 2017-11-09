@@ -116,6 +116,17 @@ export const posts = (
                     }
                 }
             }
+        case ACTIONS.UPDATE_COMMENT_COUNT:
+            return {
+                ...state,
+                items: {
+                    ...state["items"],
+                    [action.postId]: {
+                        ...state["items"][action.postId],
+                        commentCount: state["items"][action.postId]["commentCount"] + action.diff
+                    }
+                }
+            }
         default:
             return state
     }

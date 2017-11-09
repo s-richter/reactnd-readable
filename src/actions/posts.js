@@ -12,6 +12,7 @@ export const SORT_POSTS = 'SORT_POSTS'
 export const VOTE_UP_POST = 'VOTE_UP_POST'
 export const VOTE_DOWN_POST = 'VOTE_DOWN_POST'
 export const UPDATE_POST_PROP = 'UPDATE_POST_PROP'
+export const UPDATE_COMMENT_COUNT = 'UPDATE_COMMENT_COUNT'
 
 const headers = {
     Accept: 'application/json',
@@ -289,5 +290,13 @@ export function saveNewPost(postId, values) {
                 dispatch(updatePostProp(postId, values))
             })
 
+    }
+}
+
+export function updateCommentCount(postId, diff) {
+    return {
+        type: UPDATE_COMMENT_COUNT,
+        postId,
+        diff
     }
 }
