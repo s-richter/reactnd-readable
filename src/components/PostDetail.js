@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Row, Col } from 'reactstrap'
 import Post from './Post'
@@ -42,14 +43,30 @@ class PostDetail extends Component {
                         {/* the post */}
                         <div className="post-detail-post">
                             {
+                                // isFetching
+                                //     ? <div style={{ margin: '15px' }}>Loading post...</div>
+                                //     : (
+                                //         failedToLoadPost
+                                //             ? post
+                                //                 ? <div style={{ margin: '15px' }}>
+                                //                     There was an error loading the post.
+                                //                      </div>
+                                //                 : <Redirect to="/" />
+                                //             : post.deleted
+                                //                 ? <Redirect to="/" />
+                                //                 : <Post post={post} />
+                                //     )
                                 isFetching
                                     ? <div style={{ margin: '15px' }}>Loading post...</div>
                                     : (
                                         failedToLoadPost
                                             ? <div style={{ margin: '15px' }}>
                                                 There was an error loading the post.
-                                            </div>
-                                            : <Post post={post} />
+                                                 </div>
+
+                                            : post.deleted
+                                                ? <Redirect to="/" />
+                                                : <Post post={post} />
                                     )
                             }
                         </div>
@@ -98,9 +115,16 @@ class PostDetail extends Component {
                     <div className="list-of-comments-footer">
 
                         {/* comment counter */}
-                        <div className="list-of-comments-counter">
+                        {/* <div className="list-of-comments-counter">
                             Total: {comments.length} comments
-                    </div>
+                        </div> */}
+                        <div className="list-of-comments-counter">
+                            Total: {
+                                comments
+                                    .filter(comment => comment.deleted === false)
+                                    .length
+                            } comments
+                        </div>
 
                         {/* add new comment */}
                         <div className="list-of-comments-new-comment">
@@ -125,7 +149,7 @@ function mapStateToProps({ posts, comments }, ownProps) {
         return {
             isFetching: posts.isFetching,
             posts,
-            comments,
+            comments: [],
             failedToLoadPost: true
         }
     }
@@ -133,7 +157,16 @@ function mapStateToProps({ posts, comments }, ownProps) {
     const post = items[ownProps.postId]
     const { sortMethod, sortDirection, items: commentItems } = comments
     const sortingMethod = util.GetSortMethodByCriteria(sortMethod, sortDirection)
-    const sortedItems = Object.keys(commentItems).map(key => commentItems[key]).sort(sortingMethod)
+    const filteredItems = Object.keys(commentItems)
+        .filter(key => commentItems[key].deleted === false)
+        .reduce((obj, key) => {
+            obj[key] = commentItems[key];
+            return obj
+        }, {})
+    const sortedItems =
+        Object.keys(filteredItems)
+            .map(key => filteredItems[key])
+            .sort(sortingMethod)
     return {
         isFetching: posts.isFetching,
         post,

@@ -7,6 +7,7 @@ export const SORT_COMMENTS = 'SORT_COMMENTS'
 export const VOTE_UP_COMMENT = 'VOTE_UP_COMMENT'
 export const VOTE_DOWN_COMMENT = 'VOTE_DOWN_COMMENT'
 export const UPDATE_COMMENT_PROP = 'UPDATE_COMMENT_PROP'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 const headers = {
     Accept: 'application/json',
@@ -169,5 +170,36 @@ export function saveNewComment(commentId, values) {
             .then(json => {
                 dispatch(updateCommentProp(commentId, values))
             })
+    }
+}
+
+export function deleteComment(commentId) {
+    return function (dispatch) {
+        return fetch(`${util.URI}/comments/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+                ...headers
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText)
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                console.log(error)
+                return null
+            })
+            .then(json => {
+                dispatch(deleteCommentAction(commentId))
+            })
+    }
+}
+
+function deleteCommentAction(commentId) {
+    return {
+        type: DELETE_COMMENT,
+        commentId
     }
 }

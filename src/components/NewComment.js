@@ -22,7 +22,7 @@ class NewComment extends Component {
             timestamp: Date.now(),
             body: "",
             author: "",
-            voteScore: 0,   // for some reason, the server will return this as 1!
+            voteScore: 1,
             deleted: false,
             parentDeleted: false
         }

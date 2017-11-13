@@ -8,8 +8,6 @@ import PostDetail from './PostDetail'
 import './App.css';
 import './Tooltip.css'
 
-// TODO: delete comment or post
-// TODO: when a post gets deleted, all its comments have set their property parentDeleted to true
 // TODO: enable the user to pick a picture from a list to show for the post
 
 class App extends Component {

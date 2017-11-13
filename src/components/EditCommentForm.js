@@ -33,6 +33,12 @@ export default class EditCommentForm extends Component {
         this.initializeFormFields()
     }
 
+    // in case the edit comment form is opened again immediately after saving, the fields' content
+    //  has to be updated
+    componentWillReceiveProps() {
+        this.initializeFormFields()
+    }
+
     initializeFormFields = () => {
         const { comment } = this.props
         this.setState({

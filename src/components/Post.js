@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import NoImage from 'react-icons/lib/fa/image'
+// import NoImage from 'react-icons/lib/fa/image'
 import EditItemButton from './EditItemButton'
 import DeleteItemButton from './DeleteItemButton'
 import DisplayCount from './DisplayCount'
@@ -10,7 +10,7 @@ import CommentIcon from 'react-icons/lib/fa/comment-o'
 import VoteChanger from './VoteChanger'
 import EditPostForm from './EditPostForm'
 import History from './History'
-import { applyVoteToPost, saveChangesToPost } from '../actions'
+import { applyVoteToPost, saveChangesToPost, deletePost } from '../actions'
 import { VOTEDIRECTION } from '../util'
 
 class Post extends Component {
@@ -41,9 +41,8 @@ class Post extends Component {
     }
 
     onDelete = () => {
-        // TODO: mark post as deleted
-        console.log("post " + this.props.post.id + " deleted!")
-        // TODO: for all the comments: set the propery parentDeleted to true        
+        this.props.deletePost(this.props.post.id)
+
     }
 
     onVoteUp = () => {
@@ -66,11 +65,11 @@ class Post extends Component {
                     <div className="post-header">
 
                         {/* image of the author or picture for the post. Can be hidden */}
-                        <div className="post-image">
+                        {/* <div className="post-image">
                             <NoImage
                                 size={35}
                                 color='lightgrey' />
-                        </div>
+                        </div> */}
 
                         {/* information about the author and last edit date */}
                         <div className="post-info">
@@ -119,10 +118,7 @@ class Post extends Component {
                                     number={post.commentCount}
                                 />
                                 <div className="post-comment-icon">
-                                    <div
-                                        tooltip="Add a comment"
-                                        flow="left"
-                                    >
+                                    <div>
                                         <CommentIcon size={20} />
                                     </div>
                                 </div>
@@ -166,12 +162,13 @@ class Post extends Component {
     }
 }
 
-function mapStateToProps({ posts, categories }, ownProps) {
+function mapStateToProps({ posts, categories, comments }, ownProps) {
     const { items } = posts
     const post = items[ownProps.post.id]
     return {
         post,
-        categoryColors: categories.categoryColors
+        categoryColors: categories.categoryColors,
+        comments
     }
 }
 
@@ -182,6 +179,9 @@ function mapDispatchToProps(dispatch) {
         },
         saveChangesToPost: (postId, values) => {
             dispatch(saveChangesToPost(postId, values))
+        },
+        deletePost: postId => {
+            dispatch(deletePost(postId))
         }
     }
 }

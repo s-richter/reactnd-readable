@@ -78,6 +78,34 @@ export const comments = (
                     }
                 }
             }
+        case ACTIONS.DELETE_COMMENT:
+            return {
+                ...state,
+                items: {
+                    ...state["items"],
+                    [action.commentId]: {
+                        ...state["items"][action.commentId],
+                        deleted: true
+                    }
+                }
+            }
+        case ACTIONS.DELETE_POST:
+            return Object.keys(state.items).reduce(
+                (acc, val) => {
+                    return {
+                        ...acc,
+                        items: {
+                            ...acc["items"],
+                            [val]: {
+                                ...state["items"][val],
+                                parentDeleted: true
+                            }
+                        }
+                    }
+                }, {
+                    ...state
+                }
+            )
         default:
             return state
     }

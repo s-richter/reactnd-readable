@@ -13,6 +13,7 @@ export const VOTE_UP_POST = 'VOTE_UP_POST'
 export const VOTE_DOWN_POST = 'VOTE_DOWN_POST'
 export const UPDATE_POST_PROP = 'UPDATE_POST_PROP'
 export const UPDATE_COMMENT_COUNT = 'UPDATE_COMMENT_COUNT'
+export const DELETE_POST = 'DELETE_POST'
 
 const headers = {
     Accept: 'application/json',
@@ -298,5 +299,36 @@ export function updateCommentCount(postId, diff) {
         type: UPDATE_COMMENT_COUNT,
         postId,
         diff
+    }
+}
+
+export function deletePost(postId) {
+    return function (dispatch) {
+        return fetch(`${util.URI}/posts/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                ...headers
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText)
+                }
+                return response.json()
+            })
+            .catch((error) => {
+                console.log(error)
+                return null
+            })
+            .then(json => {
+                dispatch(deletePostAction(postId))
+            })
+    }
+}
+
+function deletePostAction(postId) {
+    return {
+        type: DELETE_POST,
+        postId
     }
 }

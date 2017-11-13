@@ -3,7 +3,7 @@ export const URI = "http://localhost:3001"
 
 const TIMESTAMP = 'timestamp', VOTESCORE = 'voteScore', COMMENTCOUNT = 'commentCount'
 export const sortingCriteria = [TIMESTAMP, VOTESCORE, COMMENTCOUNT]
-export const defaultSortingCriteria = TIMESTAMP
+export const defaultSortingCriteria = VOTESCORE
 
 const ASCENDING = 'ascending', DESCENDING = 'descending'
 export const sortDirections = [ASCENDING, DESCENDING]

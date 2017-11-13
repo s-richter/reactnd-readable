@@ -17,8 +17,8 @@ class SortBy extends Component {
                     value={sortMethod}
                     onChange={(event) => onChange(event.target.value)}
                 >
-                    <option value="timestamp">timestamp</option>
                     <option value="voteScore">votes</option>
+                    <option value="timestamp">timestamp</option>
                     {
                         itemType !== "comment"
                             ? <option value="commentCount">comments</option>

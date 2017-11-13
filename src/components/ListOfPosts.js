@@ -99,22 +99,30 @@ class ListOfPosts extends Component {
 function mapStateToProps({ posts, categories }, ownProps) {
     const { isFetching, sortMethod, sortDirection, items } = posts
     const { category } = ownProps
-    // items might be empty, e.g. when the page has been refreshed. In this case we fetch the posts later
-    //  on in componentDidMount().
+    // items might be empty, e.g. when the page has been refreshed. In this case we fetch the
+    //  posts later on in componentDidMount().
     // category might also be empty (undefined), which means all posts should be displayed
-    // if items is not empty, we have to filter them to get the posts with the right category
+    // if there are items, we have to filter them to get the posts with the right category
     const filteredItems =
         category
             ?
             Object.keys(items)
-                .filter(key => items[key].category === category)
+                .filter(key => items[key].category === category && items[key].deleted === false)
                 .reduce((obj, key) => {
                     obj[key] = items[key];
                     return obj
                 }, {})
-            : items
+            : Object.keys(items)
+                .filter(key => items[key].deleted === false)
+                .reduce((obj, key) => {
+                    obj[key] = items[key];
+                    return obj
+                }, {})
     const sortingMethod = util.GetSortMethodByCriteria(sortMethod, sortDirection)
-    const sortedItems = Object.keys(filteredItems).map(key => filteredItems[key]).sort(sortingMethod)
+    const sortedItems =
+        Object.keys(filteredItems)
+            .map(key => filteredItems[key])
+            .sort(sortingMethod)
     return {
         isFetching: isFetching,
         sortMethod: sortMethod,

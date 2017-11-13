@@ -27,7 +27,7 @@ class NewPost extends Component {
             body: "",
             author: "",
             category: category,
-            voteScore: 0,   // for some reason, the server will return this as 1!
+            voteScore: 1,
             deleted: false,
             commentCount: 0
         }

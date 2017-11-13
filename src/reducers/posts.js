@@ -127,6 +127,17 @@ export const posts = (
                     }
                 }
             }
+        case ACTIONS.DELETE_POST:
+            return {
+                ...state,
+                items: {
+                    ...state["items"],
+                    [action.postId]: {
+                        ...state["items"][action.postId],
+                        deleted: true
+                    }
+                }
+            }
         default:
             return state
     }
