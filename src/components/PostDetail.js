@@ -43,19 +43,6 @@ class PostDetail extends Component {
                         {/* the post */}
                         <div className="post-detail-post">
                             {
-                                // isFetching
-                                //     ? <div style={{ margin: '15px' }}>Loading post...</div>
-                                //     : (
-                                //         failedToLoadPost
-                                //             ? post
-                                //                 ? <div style={{ margin: '15px' }}>
-                                //                     There was an error loading the post.
-                                //                      </div>
-                                //                 : <Redirect to="/" />
-                                //             : post.deleted
-                                //                 ? <Redirect to="/" />
-                                //                 : <Post post={post} />
-                                //     )
                                 isFetching
                                     ? <div style={{ margin: '15px' }}>Loading post...</div>
                                     : (
@@ -115,9 +102,6 @@ class PostDetail extends Component {
                     <div className="list-of-comments-footer">
 
                         {/* comment counter */}
-                        {/* <div className="list-of-comments-counter">
-                            Total: {comments.length} comments
-                        </div> */}
                         <div className="list-of-comments-counter">
                             Total: {
                                 comments

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-// import NoImage from 'react-icons/lib/fa/image'
 import EditItemButton from './EditItemButton'
 import DeleteItemButton from './DeleteItemButton'
 import DisplayCount from './DisplayCount'
@@ -63,13 +62,6 @@ class Post extends Component {
 
                     {/* general information about the post and controls to manipulate it */}
                     <div className="post-header">
-
-                        {/* image of the author or picture for the post. Can be hidden */}
-                        {/* <div className="post-image">
-                            <NoImage
-                                size={35}
-                                color='lightgrey' />
-                        </div> */}
 
                         {/* information about the author and last edit date */}
                         <div className="post-info">

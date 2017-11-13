@@ -8,8 +8,6 @@ import PostDetail from './PostDetail'
 import './App.css';
 import './Tooltip.css'
 
-// TODO: enable the user to pick a picture from a list to show for the post
-
 class App extends Component {
   render() {
     return (
@@ -36,46 +34,6 @@ class App extends Component {
       </div>
     )
   }
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     backend: 'backend-data'
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   const url = process.env.REACT_APP_BACKEND
-  //     ? `${process.env.REACT_APP_BACKEND}/categories`
-  //     : 'http://localhost:3001/categories';
-  //   console.log('fetching from url', url);
-  //   fetch(url, {
-  //     headers: { 'Authorization': 'whatever-you-want' },
-  //     // credentials: 'include'
-  //   })
-  //     .then((res) => { return (res.text()) })
-  //     .then((data) => {
-  //       this.setState({ backend: data });
-  //     });
-  // }
-
-  // render() {
-  //   return (
-  //     <div className="App">
-  //       <div className="App-header">
-  //         {/* <img src={logo} className="App-logo" alt="logo" /> */}
-  //         <h2>Welcome to React</h2>
-  //       </div>
-  //       <p className="App-intro">
-  //         To get started, edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //       <p>
-  //         Talking to the backend yields these categories: <br />
-  //         {this.state.backend}
-  //       </p>
-  //     </div>
-  //   );
-  // }
 }
 
 export default App;

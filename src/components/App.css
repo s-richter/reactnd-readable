@@ -37,7 +37,6 @@ body, .app {
 }
 
 
-
 /* categories */
 
 .categories {
@@ -70,6 +69,7 @@ body, .app {
   font-weight: 400;
 }
 
+
 /* vote counter */
 
 .vote-counter {
@@ -85,6 +85,7 @@ body, .app {
   margin-left: 7px;
   cursor: pointer;
 }
+
 
 /* list of posts */
 
@@ -141,6 +142,7 @@ body, .app {
   margin-left: 5px;
 }
 
+
 /* new post */
 
 .new-post {
@@ -170,7 +172,6 @@ body, .app {
 .post:first-child {
   margin: 10px;
   background-color: transparent;
-  /* border-bottom: 1px solid #dedede; */
 }
 
 .post-header {
@@ -340,7 +341,6 @@ body, .app {
 
 .comment {
   display: flex;
-  /* flex-direction: column; */
   justify-content: space-between;
   margin: 10px;
   padding-top: 5px;
@@ -400,28 +400,6 @@ body, .app {
 }
 
 
-
-/* .comment-header {
-  display: flex;
-}
-
-.comment-image {
-  flex: 0 0 auto;
-}
-
-.comment-image img {
-  width: 50px;
-  height: 50px;
-  margin: 10px;
-}
-
-.comment-title-category h4 {
-  display: inline;
-  font-size: 1.1em;
-} */
-
-
-
 /* new comment */
 
 .new-comment {
@@ -435,6 +413,7 @@ body, .app {
 
 
 /* edit item dialog */
+
 .edit-label {
   margin-top: 10px;
   margin-left: 10px;
