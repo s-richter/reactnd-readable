@@ -6,6 +6,7 @@ import EditItemSelect from './EditItemSelect'
 import EditItemTextArea from './EditItemTextArea'
 import EditItemModalFooter from './EditItemModalFooter'
 
+// the component that enables the user to edit a post. This can also be a new post.
 export default class EditPostForm extends Component {
     static propTypes = {
         isVisible: PropTypes.bool.isRequired,
@@ -25,6 +26,8 @@ export default class EditPostForm extends Component {
         isNewPost: PropTypes.bool.isRequired
     }
 
+    // local state - as long as the user doesn't want to save or cancel, the global store
+    //  doesn't care about this information
     state = {
         author: '',
         title: '',
@@ -56,6 +59,7 @@ export default class EditPostForm extends Component {
 
     onSaveChanges = () => {
         if (this.validateForm()) {
+             // now the local state is saved in the global store
             const values = {
                 author: this.state.author,
                 title: this.state.title,
@@ -65,8 +69,6 @@ export default class EditPostForm extends Component {
             }
             this.setState({ hasErrors: false })
             this.props.saveChanges(values)
-            // clear the fields after the comment was saved
-            this.initializeFormFields()
             this.props.toggleModal()
         } else {
             this.setState({ hasErrors: true })

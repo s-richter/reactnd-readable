@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+// a drop-down enabling the user to sort by vote score, timestamp and (in case of posts) the
+//  number of comments
 class SortBy extends Component {
     static propTypes = {
         itemType: PropTypes.string.isRequired,

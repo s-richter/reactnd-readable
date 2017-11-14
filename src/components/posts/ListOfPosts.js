@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Post from './Post'
 import NewPost from './NewPost'
-import NavigateBack from './NavigateBack'
-import SortBy from './SortBy'
-import * as util from '../util'
-import { fetchPosts, fetchAllPosts, updatePostSortMethod } from '../actions'
+import NavigateBack from '../shared/NavigateBack'
+import SortBy from '../shared/SortBy'
+import * as util from '../../util'
+import { fetchPosts, fetchAllPosts, updatePostSortMethod } from '../../actions'
 
 class ListOfPosts extends Component {
     static propTypes = {
@@ -99,10 +99,10 @@ class ListOfPosts extends Component {
 function mapStateToProps({ posts, categories }, ownProps) {
     const { isFetching, sortMethod, sortDirection, items } = posts
     const { category } = ownProps
-    // items might be empty, e.g. when the page has been refreshed. In this case we fetch the
-    //  posts later on in componentDidMount().
+    // items might be empty, e.g. when the page has been reloaded. In this case the posts are
+    //  fetched later on in componentDidMount().
     // category might also be empty (undefined), which means all posts should be displayed
-    // if there are items, we have to filter them to get the posts with the right category
+    // if there are items, they have to be filtered to get the posts with the right category
     const filteredItems =
         category
             ?

@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import EditItemButton from './EditItemButton'
-import DeleteItemButton from './DeleteItemButton'
-import DisplayCount from './DisplayCount'
-import VoteChanger from './VoteChanger'
-import EditCommentForm from './EditCommentForm'
+import EditItemButton from '../edit/EditItemButton'
+import DeleteItemButton from '../shared/DeleteItemButton'
+import DisplayCount from '../shared/DisplayCount'
+import VoteChanger from '../shared/VoteChanger'
+import EditCommentForm from '../edit/EditCommentForm'
 import {
     applyVoteToComment,
     saveChangesToComment,
     deleteComment,
     updateCommentCount
-} from '../actions'
-import { VOTEDIRECTION } from '../util'
+} from '../../actions'
+import { VOTEDIRECTION } from '../../util'
 
+// a single comment
 class Comment extends Component {
     static propTypes = {
         comment: PropTypes.shape({
@@ -28,6 +29,7 @@ class Comment extends Component {
         })
     }
 
+    // local state for showing and hiding a modal dialog to edit the comment
     state = {
         modal: false
     }
@@ -41,8 +43,9 @@ class Comment extends Component {
     }
 
     onDelete = () => {
-        this.props.deleteComment(this.props.comment.id)
-        this.props.updateCommentCount(this.props.comment.parentId)
+        const { deleteComment, updateCommentCount, comment } = this.props
+        deleteComment(comment.id)
+        updateCommentCount(comment.parentId, -1)
     }
 
     onVoteUp = () => {
@@ -65,12 +68,14 @@ class Comment extends Component {
                             </div>
                         </div>
                         <div className="comment-content">
+                            {/* The actual content (message) of the comment */}
                             <div className="comment-body">
                                 {comment.body}
                             </div>
                         </div>
                     </div>
                     <div className="comment-update-stats">
+                        {/* controls to edit and delete the comment */}
                         <div className="comment-edit-delete">
                             <EditItemButton
                                 itemName="comment"
@@ -80,6 +85,7 @@ class Comment extends Component {
                                 onDelete={this.onDelete} />
                         </div>
                         <div className="comment-stats">
+                            {/* number of votes and controls to vote the post up or down */}
                             <div className="comment-score">
                                 <DisplayCount
                                     number={comment.voteScore}
@@ -127,8 +133,8 @@ function mapDispatchToProps(dispatch) {
         deleteComment: (commentId) => {
             dispatch(deleteComment(commentId))
         },
-        updateCommentCount: (postId) => {
-            dispatch(updateCommentCount(postId, -1))
+        updateCommentCount: (postId, amount) => {
+            dispatch(updateCommentCount(postId, amount))
         }
     }
 }

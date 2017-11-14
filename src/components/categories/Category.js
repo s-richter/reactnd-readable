@@ -7,6 +7,7 @@ const propTypes = {
   categoryColor: PropTypes.string.isRequired
 }
 
+// a single category
 function Category(props) {
   const linkAddress = `/categories/${props.name}`
   return (

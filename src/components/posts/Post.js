@@ -2,16 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import EditItemButton from './EditItemButton'
-import DeleteItemButton from './DeleteItemButton'
-import DisplayCount from './DisplayCount'
+import EditItemButton from '../edit/EditItemButton'
+import DeleteItemButton from '../shared/DeleteItemButton'
+import DisplayCount from '../shared/DisplayCount'
 import CommentIcon from 'react-icons/lib/fa/comment-o'
-import VoteChanger from './VoteChanger'
-import EditPostForm from './EditPostForm'
-import History from './History'
-import { applyVoteToPost, saveChangesToPost, deletePost } from '../actions'
-import { VOTEDIRECTION } from '../util'
+import VoteChanger from '../shared/VoteChanger'
+import EditPostForm from '../edit/EditPostForm'
+import History from '../shared/History'
+import { applyVoteToPost, saveChangesToPost, deletePost } from '../../actions'
+import { VOTEDIRECTION } from '../../util'
 
+// a single post
 class Post extends Component {
     static propTypes = {
         post: PropTypes.shape({
@@ -27,6 +28,7 @@ class Post extends Component {
         })
     }
 
+    // local state for showing and hiding a modal dialog to edit the post
     state = {
         modal: false
     }

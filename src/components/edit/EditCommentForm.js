@@ -5,6 +5,7 @@ import EditItemInput from './EditItemInput'
 import EditItemTextArea from './EditItemTextArea'
 import EditItemModalFooter from './EditItemModalFooter'
 
+// the component that enables the user to edit a comment. This can also be a new comment.
 export default class EditCommentForm extends Component {
     static propTypes = {
         isVisible: PropTypes.bool.isRequired,
@@ -23,6 +24,8 @@ export default class EditCommentForm extends Component {
         isNewComment: PropTypes.bool.isRequired
     }
 
+    // local state - as long as the user doesn't want to save or cancel, the global store
+    //  doesn't care about this information
     state = {
         author: '',
         body: '',
@@ -33,8 +36,8 @@ export default class EditCommentForm extends Component {
         this.initializeFormFields()
     }
 
-    // in case the edit comment form is opened again immediately after saving, the fields' content
-    //  has to be updated
+    // in case the edit comment form is opened again immediately after saving, the contents of the
+    //  fields have to be updated
     componentWillReceiveProps() {
         this.initializeFormFields()
     }
@@ -56,6 +59,7 @@ export default class EditCommentForm extends Component {
 
     onSaveChanges = () => {
         if (this.validateForm()) {
+            // now the local state is saved in the global store
             const values = {
                 author: this.state.author,
                 body: this.state.body,
@@ -63,8 +67,6 @@ export default class EditCommentForm extends Component {
             }
             this.setState({ hasErrors: false })
             this.props.saveChanges(values)
-            // clear the fields after the comment was saved
-            this.initializeFormFields()
             this.props.toggleModal()
         } else {
             this.setState({ hasErrors: true })

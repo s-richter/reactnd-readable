@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Category from './Category'
-import { fetchCategories } from '../actions'
+import { fetchCategories } from '../../actions'
 
+// container component that shows the available categories
 class Categories extends Component {  
     componentDidMount() {
         const { dispatch } = this.props
@@ -25,7 +26,7 @@ class Categories extends Component {
                             failedToLoadCategories
                                 ? <div style={{ margin: '10px' }}>
                                     There was an error loading the categories.
-                            </div>
+                                </div>
                                 : <div>
                                     {
                                         items.map(cat => (

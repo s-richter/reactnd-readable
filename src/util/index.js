@@ -1,5 +1,7 @@
+import * as uuid from 'uuid'
+
 export const URI = "http://localhost:3001"
-// TODO: get actual URI of the server when in production
+// TODO: before deployment, this has to be changed to the URI of the "real" server
 
 const TIMESTAMP = 'timestamp', VOTESCORE = 'voteScore', COMMENTCOUNT = 'commentCount'
 export const sortingCriteria = [TIMESTAMP, VOTESCORE, COMMENTCOUNT]
@@ -39,6 +41,10 @@ export function GetSortMethodByCriteria(criteria, direction = DESCENDING) {
     }
 }
 
+function compare(a, b) {
+    return a > b ? 1 : (a === b ? 0 : -1)
+}
+
 export function sortByTimestampAscending(a, b) {
     const a_nonnull =
         (a === null || a === undefined || a.timestamp === undefined || a.timestamp === null)
@@ -49,10 +55,6 @@ export function sortByTimestampAscending(a, b) {
             ? new Date(0)
             : b.timestamp
     return compare(a_nonnull, b_nonnull)
-}
-
-function compare(a, b) {
-    return a > b ? 1 : (a === b ? 0 : -1)
 }
 
 export function sortByTimestampDescending(a, b) {
@@ -118,4 +120,8 @@ export function sortByCommentCountDescending(a, b) {
 export const VOTEDIRECTION = {
     UP: 'upVote',
     DOWN: 'downVote'
+}
+
+export function getNewGuid() {
+    return uuid.v4()
 }

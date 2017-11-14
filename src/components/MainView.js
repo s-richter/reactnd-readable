@@ -1,9 +1,10 @@
 import React from 'react'
 import { Row, Col } from 'reactstrap'
-import Categories from './Categories'
-import ListOfPosts from './ListOfPosts'
+import Categories from './categories/Categories'
+import ListOfPosts from './posts/ListOfPosts'
 
-function Main(props) {
+// the main view of the app showing the available categories and all posts
+function MainView(props) {
     return (
         <Row>
             <Col sm="3">
@@ -11,11 +12,11 @@ function Main(props) {
                 <Categories />
             </Col>
             <Col sm="9">
-                {/* list of the first 10 posts */}
+                {/* list of the posts */}
                 <ListOfPosts />
             </Col>
         </Row>
     )
 }
 
-export default Main
+export default MainView

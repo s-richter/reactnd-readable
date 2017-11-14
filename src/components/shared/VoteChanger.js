@@ -3,6 +3,7 @@ import ThumbsUp from 'react-icons/lib/fa/thumbs-o-up'
 import ThumbsDown from 'react-icons/lib/fa/thumbs-o-down'
 import PropTypes from 'prop-types'
 
+// component that enables the user to vote posts and comments up and down
 export default class VoteChanger extends Component {
     static propTypes = {
         countedName: PropTypes.string.isRequired,

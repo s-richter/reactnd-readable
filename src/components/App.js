@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom'
 import { Container, Row, Col } from 'reactstrap'
 import Header from './Header'
-import Main from './Main'
-import CategoryView from './CategoryView'
-import PostDetail from './PostDetail'
-import './App.css';
-import './Tooltip.css'
+import MainView from './MainView'
+import CategoryView from './categories/CategoryView'
+import PostDetails from './posts/PostDetails'
+import '../css/App.css';
+import '../css/Tooltip.css'
 
 class App extends Component {
   render() {
@@ -20,12 +20,12 @@ class App extends Component {
             </Col>
           </Row>
           <Switch>
-            <Route exact path='/' component={Main} />
+            <Route exact path='/' component={MainView} />
             <Route path='/categories/:category' component={CategoryView} />
             <Route
               path='/posts/:postId'
               render={({ match }) =>
-                <PostDetail postId={match.params.postId} />
+                <PostDetails postId={match.params.postId} />
               } />
 
           </Switch>

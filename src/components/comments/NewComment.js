@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as uuid from 'uuid'
 import PropTypes from 'prop-types'
 import CommentIcon from 'react-icons/lib/fa/comment-o'
-import EditCommentForm from './EditCommentForm'
-import { saveNewComment, updateCommentCount } from '../actions'
+import EditCommentForm from '../edit/EditCommentForm'
+import { saveNewComment, updateCommentCount } from '../../actions'
+import { getNewGuid } from '../../util'
 
+// component to add a new comment
 class NewComment extends Component {
     static propTypes = {
         postId: PropTypes.string.isRequired
@@ -17,7 +18,7 @@ class NewComment extends Component {
 
     initialize = () => {
         this.comment = {
-            id: this.getNewGuid(),
+            id: getNewGuid(),
             parentId: this.props.postId,
             timestamp: Date.now(),
             body: "",
@@ -33,12 +34,8 @@ class NewComment extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // the post id might have changed
+        // the post id might have changed, if another post is selected
         this.comment.parentId = nextProps.postId
-    }
-
-    getNewGuid() {
-        return uuid.v4()
     }
 
     toggleModal = () => {
@@ -53,13 +50,14 @@ class NewComment extends Component {
                 ...this.comment,
                 ...values
             })
-        // once a comment has been saved, the comment fields are reset
+        // once a comment has been saved, the comment fields are reset and ready for a new comment
         this.initialize()
     }
 
     render() {
         return (
             <div>
+                {/* a clickable icon that shows the new comment form */}
                 <div
                     className="new-comment"
                     tooltip="Add a new comment"
@@ -69,6 +67,8 @@ class NewComment extends Component {
                     <span className="new-comment-plus">+ </span>
                     <CommentIcon size={25} />
                 </div>
+                {/* the edit comment form is reused here, as it has all the necessary 
+                functionality */}
                 <EditCommentForm
                     isVisible={this.state.modal}
                     toggleModal={this.toggleModal}

@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as uuid from 'uuid'
 import NewMessage from 'react-icons/lib/fa/envelope-o'
-import EditPostForm from './EditPostForm'
-import { saveNewPost } from '../actions'
+import EditPostForm from '../edit/EditPostForm'
+import { saveNewPost } from '../../actions'
+import { getNewGuid } from '../../util'
 
+// component to add a new post
 class NewPost extends Component {
     state = {
         modal: false
     }
 
     initialize = () => {
-        // this component will be rendered before the calls to the server api have returned the
+        // this component might be rendered before the calls to the server api have returned the
         //  list of categories. One possibility would be to use e.g. componentWillReceiveProps()
         //  and check every time the function is called. Instead, a cheat is used here: the
         //  colors associated with the categories are part of the initial state of the store
@@ -21,7 +22,7 @@ class NewPost extends Component {
             ? Object.keys(this.props.categoryColors)[0]
             : ""
         this.post = {
-            id: this.getNewGuid(),
+            id: getNewGuid(),
             timestamp: Date.now(),
             title: "",
             body: "",
@@ -37,10 +38,6 @@ class NewPost extends Component {
         this.initialize()
     }
 
-    getNewGuid() {
-        return uuid.v4()
-    }
-
     toggleModal = () => {
         this.setState({ modal: !this.state.modal })
     }
@@ -52,13 +49,14 @@ class NewPost extends Component {
                 ...this.post,
                 ...values
             })
-        // once a post has been saved, the post fields are reset
+        // once a post has been saved, the post fields are reset and ready for a new post
         this.initialize()
     }
 
     render() {
         return (
             <div>
+                {/* a clickable icon that shows the new post form */}
                 <div
                     className="new-post"
                     tooltip="Add a new post"
@@ -68,6 +66,8 @@ class NewPost extends Component {
                     <span className="new-comment-plus">+ </span>
                     <NewMessage size={25} />
                 </div>
+                {/* the edit post form is reused here, as it has all the necessary 
+                functionality */}
                 <EditPostForm
                     isVisible={this.state.modal}
                     toggleModal={this.toggleModal}
