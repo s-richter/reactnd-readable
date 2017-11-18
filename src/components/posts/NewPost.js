@@ -11,7 +11,7 @@ class NewPost extends Component {
         modal: false
     }
 
-    initialize = () => {
+    reset = () => {
         // this component might be rendered before the calls to the server api have returned the
         //  list of categories. One possibility would be to use e.g. componentWillReceiveProps()
         //  and check every time the function is called. Instead, a cheat is used here: the
@@ -35,7 +35,7 @@ class NewPost extends Component {
     }
 
     componentWillMount() {
-        this.initialize()
+        this.reset()
     }
 
     toggleModal = () => {
@@ -50,7 +50,7 @@ class NewPost extends Component {
                 ...values
             })
         // once a post has been saved, the post fields are reset and ready for a new post
-        this.initialize()
+        this.reset()
     }
 
     render() {

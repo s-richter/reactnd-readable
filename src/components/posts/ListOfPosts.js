@@ -99,9 +99,9 @@ class ListOfPosts extends Component {
 function mapStateToProps({ posts, categories }, ownProps) {
     const { isFetching, sortMethod, sortDirection, items } = posts
     const { category } = ownProps
-    // items might be empty, e.g. when the page has been reloaded. In this case the posts are
-    //  fetched later on in componentDidMount().
-    // category might also be empty (undefined), which means all posts should be displayed
+    // items might be empty, e.g. when the page has been reloaded or bookmarked and the store is empty.
+    //  In this case the posts are fetched later on in componentDidMount().
+    // category might also be empty (undefined), which simply means all posts should be displayed
     // if there are items, they have to be filtered to get the posts with the right category
     const filteredItems =
         category
@@ -119,6 +119,7 @@ function mapStateToProps({ posts, categories }, ownProps) {
                     return obj
                 }, {})
     const sortingMethod = util.GetSortMethodByCriteria(sortMethod, sortDirection)
+    // sortDirection is actually not used right now, but the UI could be easily changed to support it
     const sortedItems =
         Object.keys(filteredItems)
             .map(key => filteredItems[key])

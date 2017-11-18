@@ -73,8 +73,16 @@ function mapStateToProps({ posts, comments }, ownProps) {
             failedToLoadPost: true
         }
     }
-
     const post = items[ownProps.postId]
+    // if the post returned is equal to undefined, it doesn't exist any more (deleted)
+    if (post === undefined) {
+        return {
+            isFetching: false,
+            post,
+            failedToLoadPost: true
+        }
+    }
+
     return {
         isFetching: false,
         post,

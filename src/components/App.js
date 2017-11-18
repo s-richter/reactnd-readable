@@ -21,13 +21,12 @@ class App extends Component {
           </Row>
           <Switch>
             <Route exact path='/' component={MainView} />
-            <Route path='/categories/:category' component={CategoryView} />
             <Route
-              path='/posts/:postId'
+              path='/:category/:postId'
               render={({ match }) =>
                 <PostDetails postId={match.params.postId} />
               } />
-
+            <Route path='/:category' component={CategoryView} />
           </Switch>
 
         </Container>

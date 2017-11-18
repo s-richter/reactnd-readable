@@ -56,8 +56,8 @@ class Post extends Component {
 
     render() {
         const { post, categoryColors } = this.props
-        const showDetails = History.location.pathname.includes("/posts/")
-        const link = `/posts/${post.id}`
+        const showDetails = History.location.pathname.includes("/" + post.category + "/")
+        const link = `/${post.category}/${post.id}`
         return (
             <div className="post-container">
                 <div className="post">

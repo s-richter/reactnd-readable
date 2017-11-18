@@ -9,7 +9,7 @@ const propTypes = {
 
 // a single category
 function Category(props) {
-  const linkAddress = `/categories/${props.name}`
+  const linkAddress = `/${props.name}`
   return (
     <div className="category">
       <h3>

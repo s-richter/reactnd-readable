@@ -92,7 +92,8 @@ class ListOfComments extends Component {
 function mapStateToProps({ comments }, ownProps) {
     const { sortMethod, sortDirection, items: commentItems } = comments
     const sortingMethod = util.GetSortMethodByCriteria(sortMethod, sortDirection)
-    // as with the posts, the comments have to be filtered and sorted
+    // as with the posts, the comments have to be filtered and sorted. And as with the posts,
+    //  sortDirection is not used right now, but the UI could be easily changed to support it
     const filteredItems = Object.keys(commentItems)
         .filter(key => commentItems[key].deleted === false)
         .reduce((obj, key) => {

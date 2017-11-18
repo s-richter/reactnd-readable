@@ -16,7 +16,7 @@ class NewComment extends Component {
         modal: false
     }
 
-    initialize = () => {
+    reset = () => {
         this.comment = {
             id: getNewGuid(),
             parentId: this.props.postId,
@@ -30,7 +30,7 @@ class NewComment extends Component {
     }
 
     componentWillMount() {
-        this.initialize()
+        this.reset()
     }
 
     componentWillReceiveProps(nextProps) {
@@ -51,7 +51,7 @@ class NewComment extends Component {
                 ...values
             })
         // once a comment has been saved, the comment fields are reset and ready for a new comment
-        this.initialize()
+        this.reset()
     }
 
     render() {

@@ -32,23 +32,23 @@ export default class EditCommentForm extends Component {
         hasErrors: false
     }
 
-    componentDidMount() {
-        this.initializeFormFields()
-    }
-
-    // in case the edit comment form is opened again immediately after saving, the contents of the
-    //  fields have to be updated
-    componentWillReceiveProps() {
-        this.initializeFormFields()
-    }
-
-    initializeFormFields = () => {
+    resetFormFields = () => {
         const { comment } = this.props
         this.setState({
             author: comment.author,
             body: comment.body,
             hasErrors: false
         })
+    }
+
+    componentDidMount() {
+        this.resetFormFields()
+    }
+
+    // in case the edit comment form is opened again immediately after saving, the contents of the
+    //  fields have to be reset
+    componentWillReceiveProps() {
+        this.resetFormFields()
     }
 
     onChange = (name, value) => {
@@ -74,7 +74,7 @@ export default class EditCommentForm extends Component {
     }
 
     onDiscardChanges = () => {
-        this.initializeFormFields()
+        this.resetFormFields()
         this.props.toggleModal()
     }
 
