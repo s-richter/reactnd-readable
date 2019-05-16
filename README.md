@@ -29,8 +29,9 @@ To install the backend server:
 
 1. run `git clone https://github.com/udacity/reactnd-project-readable-starter` to clone the backend repository
 2. type `cd reactnd-project-readable-starter` to change the directory
-3. run `npm install` to install
-4. run `node server` to start the server. This should launch the backend server at http://localhost:3001/
+3. type `cd api-server` to get into the api server directory
+4. run `npm install` to install
+5. run `node server` to start the server. This should launch the backend server at http://localhost:3001/
 
 To install the frontend (this project):
 
